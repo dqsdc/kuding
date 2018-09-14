@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qilinxx.kuding.domain.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.qilinxx.kuding.domain.model.Teacher">
+    <id column="t_id" jdbcType="VARCHAR" property="tId" />
+    <result column="t_account" jdbcType="VARCHAR" property="tAccount" />
+    <result column="t_password" jdbcType="VARCHAR" property="tPassword" />
+    <result column="t_name" jdbcType="VARCHAR" property="tName" />
+    <result column="t_age" jdbcType="INTEGER" property="tAge" />
+    <result column="t_sex" jdbcType="BIT" property="tSex" />
+    <result column="t_state" jdbcType="BIT" property="tState" />
+    <result column="t_create_time" jdbcType="BIGINT" property="tCreateTime" />
+    <result column="t_degree" jdbcType="VARCHAR" property="tDegree" />
+    <result column="t_detail" jdbcType="VARCHAR" property="tDetail" />
+    <result column="t_head_image" jdbcType="VARCHAR" property="tHeadImage" />
+    <result column="t_remark" jdbcType="VARCHAR" property="tRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    t_id, t_account, t_password, t_name, t_age, t_sex, t_state, t_create_time, t_degree, 
+    t_detail, t_head_image, t_remark
+  </sql>
+</mapper>
