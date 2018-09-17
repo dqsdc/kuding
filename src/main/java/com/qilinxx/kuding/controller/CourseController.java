@@ -29,7 +29,7 @@ public class CourseController {
      *
      * @return 跳转到course页面
      */
-    @RequestMapping("/course")
+    @RequestMapping("article-list.html")
     public String courseList(Model model){
         List<Course> courseList = courseService.getAll();
         System.out.println(courseList.size());
@@ -41,10 +41,10 @@ public class CourseController {
      *
      * @return 跳转到添加页面
      */
-    @RequestMapping("/course/insertUI")
+    @RequestMapping("article-add.html")
     public String courseInsertUI(){
 
-        return "courseInsert";
+        return "article-add";
     }
 
     /**
@@ -55,7 +55,7 @@ public class CourseController {
      * @param cCount   总课数
      * @return 返回到course界面
      */
-    @RequestMapping("/course/insert")
+    @RequestMapping("courseAdd")
     public String courseInsert(String cName, String cCreateTime, String cDetail, String cCount){
         String uu32 = UUID.UU32();//生成uuid
         System.out.println("课名："+cName+"创建时间:"+cCreateTime+"课简:"+cDetail+"课成数量:"+cCount);
@@ -70,7 +70,7 @@ public class CourseController {
         course.setcCount(Integer.parseInt(cCount));
         course.setcId(uu32);
         courseService.insert(course);
-        return "";
+        return "redirect:article-list.html";
     }
     /**
      *前台传一个课程id进来，查找对象传过去

@@ -4,9 +4,9 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         master:
            name: test
-           url: jdbc:mysql:///ku?useSSL=false
+           url: jdbc:mysql://115.159.33.73:3306/ku?useSSL=false
            username: root
-           password: 1234
+           password: 123
            driver-class-name: com.mysql.jdbc.Driver
            filters: stat
            maxActive: 20

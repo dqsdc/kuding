@@ -29,16 +29,16 @@ public class IndexController {
     public String showWelcome() {
         return "welcome";
     }
-
-    @RequestMapping("article-add.html")
-    public String showArticleAdd() {
-        return "article-add";
-    }
-
-    @RequestMapping("article-list.html")
-    public String showArticleList() {
-        return "article-list";
-    }
+//
+//    @RequestMapping("article-add.html")
+//    public String showArticleAdd() {
+//        return "article-add";
+//    }
+//
+//    @RequestMapping("article-list.html")
+//    public String showArticleList() {
+//        return "article-list";
+//    }
 
     @RequestMapping("picture-add.html")
     public String showPictureAdd() {

@@ -79,7 +79,7 @@ public class StudentController {
     @RequestMapping("/addStudent")
     public String addStudent(Student student){
         Integer i=studentService.addStudent(student);
-
+      System.out.println(student.getsSex());
         System.out.println(student);
         return "redirect:/student-list.html";
     }
