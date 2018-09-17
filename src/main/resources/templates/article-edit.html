@@ -1,6 +1,6 @@
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -30,17 +30,17 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add">
+	<form class="form form-horizontal" id="form-article-add" th:action="courseUpdate" th:method="post">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="articletitle" name="articletitle">
+				<input type="text" class="input-text" th:value="${course.cName}" placeholder="" id="articletitle" name="cName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">课程节数：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="articletitle2" name="articletitle2">
+				<input type="text" class="input-text" th:value="${course.cCount}" placeholder="" id="articletitle2" name="cCount">
 			</div>
 		</div>
 	
@@ -49,7 +49,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">文章摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="abstract" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<textarea name="cDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" th:value="${course.cDetail}"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
@@ -58,10 +58,16 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">创建日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="date" id="commentdatemin" name="commentdatemin" class="input-text " >
+				<input type="text" id="commentdatemin" name="cCreateTime" class="input-text " th:value="${course.cCreateTime}" >
 			</div>
 		</div>
-		
+
+		<div class="row cl">
+
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" id="courseid" name="cId" class="input-text " th:value="${course.cId}" th:hidden="true">
+			</div>
+		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
@@ -95,57 +101,57 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	//表单验证
-	$("#form-article-add").validate({
-		rules:{
-			articletitle:{
-				required:true,
-			},
-			articletitle2:{
-				required:true,
-			},
-			articlecolumn:{
-				required:true,
-			},
-			articletype:{
-				required:true,
-			},
-			articlesort:{
-				required:true,
-			},
-			keywords:{
-				required:true,
-			},
-			abstract:{
-				required:true,
-			},
-			author:{
-				required:true,
-			},
-			sources:{
-				required:true,
-			},
-			allowcomments:{
-				required:true,
-			},
-			commentdatemin:{
-				required:true,
-			},
-			commentdatemax:{
-				required:true,
-			},
-
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
-	});
+	// //表单验证
+	// $("#form-article-add").validate({
+	// 	rules:{
+	// 		articletitle:{
+	// 			required:true,
+	// 		},
+	// 		articletitle2:{
+	// 			required:true,
+	// 		},
+	// 		articlecolumn:{
+	// 			required:true,
+	// 		},
+	// 		articletype:{
+	// 			required:true,
+	// 		},
+	// 		articlesort:{
+	// 			required:true,
+	// 		},
+	// 		keywords:{
+	// 			required:true,
+	// 		},
+	// 		abstract:{
+	// 			required:true,
+	// 		},
+	// 		author:{
+	// 			required:true,
+	// 		},
+	// 		sources:{
+	// 			required:true,
+	// 		},
+	// 		allowcomments:{
+	// 			required:true,
+	// 		},
+	// 		commentdatemin:{
+	// 			required:true,
+	// 		},
+	// 		commentdatemax:{
+	// 			required:true,
+	// 		},
+	//
+	// 	},
+	// 	onkeyup:false,
+	// 	focusCleanup:true,
+	// 	success:"valid",
+	// 	submitHandler:function(form){
+	// 		//$(form).ajaxSubmit();
+	// 		var index = parent.layer.getFrameIndex(window.name);
+	// 		//parent.$('.btn-refresh').click();
+	// 		parent.layer.close(index);
+	// 	}
+	// });
 
 });
 </script>

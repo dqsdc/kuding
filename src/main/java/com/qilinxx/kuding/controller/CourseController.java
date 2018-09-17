@@ -9,6 +9,7 @@ import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -76,11 +77,13 @@ public class CourseController {
      *前台传一个课程id进来，查找对象传过去
      * @return 跳转到修改页面
      */
-    @RequestMapping("/course/updateUI")
+    @RequestMapping("article-edit.html")
     public String courseUpdateUI(Model model, String cId){
+        System.out.println("ggod"+cId);
         Course course = courseService.selecteById(cId);
+        System.out.println(course);
         model.addAttribute("course",course);
-        return "courseUpdate";
+        return "article-edit";
     }
     /**
      * 跟新课程
@@ -90,27 +93,27 @@ public class CourseController {
      * @param cCount   总课数
      * @return 返回到course界面
      */
-    @RequestMapping("/course/update")
-    public String courseUpdate(String cName, String cCreateTime, String cDetail, String cCount){
+    @RequestMapping("courseUpdate")
+    public String courseUpdate(String cName, String cCreateTime, String cDetail, String cCount,String cId){
 
-        System.out.println("课名："+cName+"修改时间:"+cCreateTime+"课简:"+cDetail+"课成数量:"+cCount);
+        System.out.println("课名："+cName+"修改时间:"+cCreateTime+"课简:"+cDetail+"课成数量:"+cCount+"id:"+cId);
         Course course = new Course();
-        Date date = DateKit.dateFormat(cCreateTime, "yyyy-MM-dd");//生成这一类型的date
-        System.out.println(date);
-        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
-        System.out.println(timeLong);
+        //Date date = DateKit.dateFormat(cCreateTime, "yyyy-MM-dd");//生成这一类型的date
+        //System.out.println(date);
+        //long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
+        //System.out.println(timeLong);
         course.setcName(cName);
-        course.setcCreateTime(timeLong);
+        course.setcCreateTime(Long.parseLong(cCreateTime));
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
-
+        course.setcId(cId);
         courseService.update(course);
-        return "";
+        return "redirect:article-list.html";
     }
     /**
      * 删除课程
      */
-    @RequestMapping("/course/delete")
+    @RequestMapping("deleteCourse")
     public void deleteCourse(String cid){
         //得到隐藏域id，根据id删除对象
         courseService.delete(cid);
