@@ -66,11 +66,11 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input value="0" name="sState" type="radio" id="state-1" checked>
+					<input value=true name="sState" type="radio" id="state-1" checked>
 					<label for="state-1">启用</label>
 				</div>
 				<div class="radio-box">
-					<input th:value="1" type="radio" id="state-2" name="sState">
+					<input th:value=false type="radio" id="state-2" name="sState">
 					<label for="state-2">禁用</label>
 				</div>
 				<!--<div class="radio-box">-->
@@ -104,9 +104,9 @@
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="sGrade">
 					<option selected>请选择年级</option>
-					<option value="1">一年级</option>
-					<option value="2">二年级</option>
-					<option value="3">三年级</option>
+					<option value="一年级">一年级</option>
+					<option value="二年级">二年级</option>
+					<option value="三年级">三年级</option>
 				</select>
 				</span> </div>
 		</div>
@@ -171,15 +171,13 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-		    //alert("到底咋啦");
-			$(form).ajaxSubmit();
-            // window.parent.location.reload();
-			//var index = parent.layer.getFrameIndex(window.name);
-			parent.$('#btn-refresh').click();
-			//parent.layer.close(index);
-            parent.location.reload();
-            // window.location.reload();
 
+			$(form).ajaxSubmit();
+
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('#btn-refresh').click();
+			parent.layer.close(index);
+            //window.parent.location.reload();
 		}
 	});
 });

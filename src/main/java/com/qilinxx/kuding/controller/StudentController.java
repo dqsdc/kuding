@@ -23,7 +23,18 @@ public class StudentController {
    
     @Autowired
     private StudentService studentService;
-    
+
+    /**
+    *@Author: pengxiaoyu
+    * @Description:跳转到修改密码的页面
+    * @Param: []
+    * @return: java.lang.String
+    * @Date: 2018/9/17
+    */
+    @RequestMapping("change-password.html")
+    public String change_password(){
+        return "change-password";
+    }
     /** 
     *@Author: pengxiaoyu 
     * @Description: 查询所有学生信息发送到学生列表页面 
@@ -48,13 +59,13 @@ public class StudentController {
     * @return: java.lang.String 
     * @Date: 2018/9/17 
     */ 
-    @RequestMapping("/member-show.html")
-    public String member_show(String id,Model model){
-
-       Student student= studentService.selectStudentById(id);
+    @RequestMapping("student-show.html")
+    public String member_show(String uid,Model model){
+        System.out.println(uid);
+       Student student= studentService.selectStudentById(uid);
        model.addAttribute("student",student);
 
-        return "member-show";
+        return "student-show";
     }
 
     /**
@@ -85,17 +96,16 @@ public class StudentController {
     }
     /**
     *@Author: pengxiaoyu
-    * @Description: 删除一个用户  真的删除
+    * @Description: 删除一个用户  从数据库真的删除
     * @Param:
     * @return:
     * @Date: 2018/9/17
     */
-
     @ResponseBody
     @RequestMapping("/deleteStudent")
     public String deleteStudent( String uid){
         System.out.println(uid);
-        Integer i=studentService.deletStudentById(uid);
+        Integer i=studentService.deleteStudentById(uid);
         if(i>0){
             System.out.println(i);
             return "success";
@@ -104,6 +114,20 @@ public class StudentController {
             return "fail";
         }
 
+    }
+    @ResponseBody
+    @RequestMapping("/stopStudent")
+    public String stopStudent(String uid){
 
+        Integer i=studentService.stopStudent(uid);
+
+        return "success";
+
+    }
+    @ResponseBody
+    @RequestMapping("/startStudent")
+    public String startStudent(String uid){
+        Integer i=studentService.startStudent(uid);
+        return "success";
     }
 }

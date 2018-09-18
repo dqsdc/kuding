@@ -68,23 +68,34 @@
 
 				<td><input type="checkbox" value="{}" name=""></td>
 				<td th:text="${interStart.index+1}">1</td>
-				<td><u th:text="${student.sName}" style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u></td>
-				<!--<th:block th:if="${student.sSex}">-->
-					<!--<td >女</td>-->
-				<!--</th:block>-->
-				<!--<th:block th:else>-->
-					<!--<td >男</td>-->
-				<!--</th:block>-->
+				<td><u th:text="${student.sName}" style="cursor:pointer" class="text-primary"
+					   th:onclick="'javascript:member_show(\''+${student.sName}+'\',\''+student-show.html+'\',\''+${student.sId}+'\',\''+360+'\',\''+400+'\');'">张三</u></td>
+				<!--  onclick="member_show('张三','student-show.html','10001','360','400')"-->
 				<td th:if="${student.sSex}" >女</td>
 				<td th:unless="${student.sSex}">男</td>
 				<td th:text="${student.sAccount}">13000000000</td>
 				<td th:text="${student.sEmail}">admin@mail.com</td>
-				<td th:text="${student.sGrade}+年级" class="text-l">一年级</td>
+				<td th:text="${student.sGrade}" class="text-l">一年级</td>
 				<td th:text="${#dates.format(student.sCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</td>
-				<td class="td-status"><span class="label label-success radius">已启用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+				<td class="td-status" th:if="${student.sState}"><span class="label label-success radius">已启用</span></td>
+				<td class="td-status" th:unless="${student.sState}"><span class="label label-defaunt radius">已停用</span></td>
+
+				<td class="td-manage">
+					<!--onClick="member_stop(this,'10001')"
+						th:onclick="'javascript:targetUrl('+${indexURL.value}+');'"
+						 th:onclick= "'javascript:goRead('+${item.id}+','+${cartoon.id}+')'"
+						 th:onclick="'javascript:openBox(\''+${curCabNo}+'\',\''+${box.no}+'\')'"
+					-->
+					<a th:if="${student.sState}" style="text-decoration:none"
+					   th:onclick="'javascript:member_stop('+this+',\''+${student.sId}+'\')'"
+																				 href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+
+					<!--onClick="member_start(this,'10001')"-->
+					<a  th:unless="${student.sState}" style="text-decoration:none" th:onclick="'javascript:member_start('+this+',\''+${student.sId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+
 					<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>
+
 					<a title="删除" href="javascript:;"
 					   th:onclick="'javascript:member_del(\''+${student.sId}+'\');'"
 					   class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
@@ -126,20 +137,24 @@ function member_add(title,url,w,h){
 }
 /*用户-查看*/
 function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
+	layer_show(title,url+"?uid="+id,w,h);
 }
 /*用户-停用*/
 function member_stop(obj,id){
+    var basePath =[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
 	layer.confirm('确认要停用吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
-			dataType: 'json',
+			url: basePath+'/stopStudent?uid='+id,
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none"  href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');//th:onclick="'javascript:member_start('+this+',\''+${student.sId}+'\')'"
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
 				$(obj).remove();
 				layer.msg('已停用!',{icon: 5,time:1000});
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
+
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -150,16 +165,19 @@ function member_stop(obj,id){
 
 /*用户-启用*/
 function member_start(obj,id){
+    var basePath =[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
 	layer.confirm('确认要启用吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
-			dataType: 'json',
+			url: basePath+'/startStudent?uid='+id,
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" href="javascript:;" title="停用" ><i class="Hui-iconfont">&#xe631;</i></a>');// th:onclick="'javascript:member_stop('+this+',\''+${student.sId}+'\')'"
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 				$(obj).remove();
 				layer.msg('已启用!',{icon: 6,time:1000});
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -186,11 +204,7 @@ function member_del(uid){
              url: basePath + '/deleteStudent?uid='+uid,
 			data:null,
 			success: function(data){
-			   // alert("已删除");
-				//$(obj).parents("tr").remove();
-
 				layer.msg('已删除!',{icon:1,time:1000});
-
                 setTimeout(function(){
                     window.location.reload();
                 }, 1000);
@@ -208,6 +222,7 @@ function member_del(uid){
 <script>
 
     function refresh() {
+        //alert("刷新");
         window.location.reload();
     }
 </script>

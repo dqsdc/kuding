@@ -14,5 +14,9 @@ public interface StudentService {
 
     Integer addStudent(Student student);
 
-    Integer deletStudentById(String uid);
+    Integer deleteStudentById(String uid);
+
+    Integer stopStudent(String uid);
+
+    Integer startStudent(String uid);
 }

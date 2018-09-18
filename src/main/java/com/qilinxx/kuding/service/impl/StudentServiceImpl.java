@@ -42,13 +42,32 @@ public class StudentServiceImpl  implements StudentService {
     @Override
     public Integer addStudent(Student student) {
         student.setsId(UUID.UU32());
-//        student.setsCreateTime(DateKit.getTodayTime());
-        student.setsCreateTime(DateKit.getUnixTimeLong());
+        student.setsCreateTime(new Date().getTime());
         return studentMapper.insert(student);
     }
 
     @Override
-    public Integer deletStudentById(String uid) {
+    public Integer deleteStudentById(String uid) {
         return studentMapper.deleteByPrimaryKey(uid);
+    }
+
+    @Override
+    public Integer stopStudent(String uid) {
+        Student student=studentMapper.selectByPrimaryKey(uid);
+
+        student.setsState(false);
+        System.out.println(student);
+        return  studentMapper.updateByPrimaryKeySelective(student);
+
+    }
+
+    @Override
+    public Integer startStudent(String uid) {
+        Student student=studentMapper.selectByPrimaryKey(uid);
+
+        student.setsState(true);
+        System.out.println(student);
+        return  studentMapper.updateByPrimaryKeySelective(student);
+
     }
 }
