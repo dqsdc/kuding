@@ -128,7 +128,7 @@ public class CourseController {
     public String listDetail(String cId, Model model){
         System.out.println("课程id"+cId);
         List<Detail> detailListe = new ArrayList<>();
-        detailListe=detailService.getAllbycid(cId);
+        detailListe=detailService.getAllByCid(cId);
         System.out.println(detailListe+"长度："+detailListe.size());
         model.addAttribute("detailListe",detailListe);
         model.addAttribute("cId",cId);
@@ -148,7 +148,6 @@ public class CourseController {
     /**
      * 保存课程
      * @param dName 课名
-     * @param dCreateTime 创建时间
      * @param dDetail  课简
      * @param dNumber   第几章
      * @param  dTimeLength   课时长
@@ -181,7 +180,6 @@ public class CourseController {
     /**
      * 跟新详课程
      * @param dName 课名
-     * @param dCreateTime 创建时间
      * @param dDetail  课简
      * @param dNumber   第几章
      * @param  dTimeLength   课时长
