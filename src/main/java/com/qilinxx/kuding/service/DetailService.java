@@ -13,4 +13,6 @@ public interface DetailService {
     Detail selectById(String dId);//根据id查找详课
 
     void update(Detail detail);//更新详课信息
+
+    void deleteById(String did);//通过id删除章节课程
 }

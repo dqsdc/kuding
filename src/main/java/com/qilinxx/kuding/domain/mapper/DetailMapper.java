@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface DetailMapper extends Mapper<Detail>{
 
-    @Select("SELECT * FROM web_detail WHERE d_cid_id = #{id}")
+
     List<Detail> selectAllbycid(String id);//根据cid进行查询所有章节课
 }
