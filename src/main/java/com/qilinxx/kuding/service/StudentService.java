@@ -8,7 +8,7 @@ public interface StudentService {
 
     List<Student> selectAllStudent();
 
-    void editStudent(Student student);
+    Integer editStudent(Student student);
 
     Student selectStudentById(String id);
 
@@ -19,4 +19,6 @@ public interface StudentService {
     Integer stopStudent(String uid);
 
     Integer startStudent(String uid);
+
+    Integer changePasswordBySId(String sId, String newpassword);
 }

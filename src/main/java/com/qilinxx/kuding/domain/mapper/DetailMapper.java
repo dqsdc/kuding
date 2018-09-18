@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface DetailMapper extends Mapper<Detail>{
 
-
-    List<Detail> selectAllbycid(String id);//根据cid进行查询所有章节课
+    List<Detail> selectAllByCid(String id);//根据cid进行查询所有章节课
 }

@@ -91,4 +91,18 @@ public class Grant {
     public void setgTidId(String gTidId) {
         this.gTidId = gTidId == null ? null : gTidId.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Grant{" +
+                "gId='" + gId + '\'' +
+                ", gRecord='" + gRecord + '\'' +
+                ", gTime=" + gTime +
+                ", gUrl='" + gUrl + '\'' +
+                ", gRemark='" + gRemark + '\'' +
+                ", gDidId='" + gDidId + '\'' +
+                ", gSidId='" + gSidId + '\'' +
+                ", gTidId='" + gTidId + '\'' +
+                '}';
+    }
 }

@@ -70,4 +70,7 @@
   <sql id="Base_Column_List">
     c_id, c_name, c_create_time, c_detail, c_count, c_remark
   </sql>
+  <select id="selectIdByName" resultType="string">
+    SELECT c_id FROM web_course WHERE c_name=#{name}
+  </select>
 </mapper>

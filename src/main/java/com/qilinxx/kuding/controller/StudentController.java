@@ -31,9 +31,18 @@ public class StudentController {
     * @return: java.lang.String
     * @Date: 2018/9/17
     */
-    @RequestMapping("change-password.html")
-    public String change_password(){
-        return "change-password";
+    @RequestMapping("student-change-password.html")
+    public String change_password(String uid,Model model){
+        Student student = studentService.selectStudentById(uid);
+        model.addAttribute("student",student);
+        return "student-change-password";
+    }
+    @ResponseBody
+    @RequestMapping("/changePassword")
+    public String changePassword(String sId,String newpassword){
+        int i=studentService.changePasswordBySId(sId,newpassword);
+        System.out.println(sId+newpassword);
+        return   "redirect:/student-list.html";
     }
     /** 
     *@Author: pengxiaoyu 
@@ -44,8 +53,6 @@ public class StudentController {
     */ 
     @RequestMapping("/student-list.html")
     public String showMemberList(Model model) {
-//        System.out.println("student-list.html");
-//
         List<Student> studentList=studentService.selectAllStudent();
 
         model.addAttribute("studentList",studentList);
@@ -87,10 +94,11 @@ public class StudentController {
      * @return:
      * @Date: 2018/9/17
      */
+    @ResponseBody
     @RequestMapping("/addStudent")
     public String addStudent(Student student){
         Integer i=studentService.addStudent(student);
-      System.out.println(student.getsSex());
+        System.out.println(student.getsSex());
         System.out.println(student);
         return "redirect:/student-list.html";
     }
@@ -115,6 +123,13 @@ public class StudentController {
         }
 
     }
+    /**
+    *@Author: pengxiaoyu
+    * @Description: 禁用学生
+    * @Param: [uid]
+    * @return: java.lang.String
+    * @Date: 2018/9/18
+    */
     @ResponseBody
     @RequestMapping("/stopStudent")
     public String stopStudent(String uid){
@@ -124,10 +139,46 @@ public class StudentController {
         return "success";
 
     }
+    /**
+    *@Author: pengxiaoyu
+    * @Description: 启用学生
+    * @Param: [uid]
+    * @return: java.lang.String
+    * @Date: 2018/9/18
+    */
     @ResponseBody
     @RequestMapping("/startStudent")
     public String startStudent(String uid){
         Integer i=studentService.startStudent(uid);
+        return "success";
+    }
+    /**
+    *@Author: pengxiaoyu
+    * @Description: 跳转到修改学生信息页面
+    * @Param:
+    * @return:
+    * @Date: 2018/9/18
+    */
+    @RequestMapping("student-edit.html")
+    public String student_edit(String uid,Model model){
+
+        Student student = studentService.selectStudentById(uid);
+        model.addAttribute("student",student);
+        return "student-edit";
+    }
+    /**
+    *@Author: pengxiaoyu
+    * @Description: 修改学生信息
+    * @Param:
+    * @return:
+    * @Date: 2018/9/18
+    */
+
+    @ResponseBody
+    @RequestMapping("/editStudent")
+    public String editStudent(Student student){
+        System.out.println(student);
+        studentService.editStudent(student);
         return "success";
     }
 }

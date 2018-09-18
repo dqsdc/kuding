@@ -284,7 +284,7 @@ img{border:0;vertical-align:middle}
 a img,img{-ms-interpolation-mode:bicubic}
 
 /*IE下a:hover 背景闪烁*/
-*html{overflow:-moz-scrollbars-vertical;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this))}
+*html{overflow:-moz-scrollbars-vertical;zoom:expression(expression(function(parameters){ var ele = parameters.ele; ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this)))}
 
 /*HTML5 reset*/
 header,footer,section,aside,details,menu,article,section,nav,address,hgroup,figure,figcaption,legend{display:block;margin:0;padding:0}time{display:inline}
@@ -747,7 +747,7 @@ input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit
 .w-300{width:300px}
 .w-200{width:200px}
 @media (max-width: 1000px) {
-	.Hui-wraper,.wp,{ width:auto!important;padding:0 15px!important}
+	.Hui-wraper,.wp{ width:auto!important;padding:0 15px!important}
 }
 @media print{
 	.Hui-wraper{width:auto}
@@ -3211,7 +3211,7 @@ H-ui采用Font Awesome 3.2.1的整套图标，因为是图标字体，所以可�
 	<div class="topnav"><div class="cl"><div class="l">您好，欢迎来到Hui！</div><div class="r"><span class="r_nav">[ <a rel="nofollow" href="javascript:login();">登录</a> ]</span><span class="pipe">|</span><span class="r_nav">[ <a href="javascript:register();" rel="nofollow">注册</a> ]</span><span class="pipe">|</span><span class="r_nav"><a title="收藏" href="javascript:addFavorite();">收藏本站</a></span><span class="pipe">|</span><span class="r_nav"><a href="javascript:void(0)" onclick="setHome(this);" title="设为首页">设为首页</a></span></div></div></div>
 
 */
-.topnav{height:30px;line-height:30px;background-color;#f7f7f7;border-bottom:1px solid #EBEBEB; font-size:12px}
+.topnav{height:30px;line-height:30px;background-color:#f7f7f7;border-bottom:1px solid #EBEBEB; font-size:12px}
 .topbar{background-color: #ECECEC;border-bottom:1px solid #ddd}
 .topbar a{margin-right:5px}
 .r_nav{display:inline-block; color:#999}

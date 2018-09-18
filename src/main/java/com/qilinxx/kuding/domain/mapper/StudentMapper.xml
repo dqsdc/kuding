@@ -76,4 +76,8 @@
     s_id, s_account, s_password, s_name, s_sex, s_state, s_create_time, s_grade, s_head_image,
     s_remark, s_email
   </sql>
+
+  <select id="selectByPhone" resultMap="BaseResultMap">
+    SELECT * from web_student WHERE s_account=#{phone}
+  </select>
 </mapper>
