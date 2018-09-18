@@ -54,25 +54,19 @@ public class CourseController {
     /**
      * 保存课程
      * @param cName 课名
-     * @param cCreateTime 创建时间
      * @param cDetail  课简
      * @param cCount   总课数
      * @return 返回到course界面
      */
     @RequestMapping("courseAdd")
-    public String courseInsert(String cName, String cCreateTime, String cDetail, String cCount){
-        String uu32 = UUID.UU32();//生成uuid
-        System.out.println("课名："+cName+"创建时间:"+cCreateTime+"课简:"+cDetail+"课成数量:"+cCount);
+    public String courseInsert(String cName, String cDetail, String cCount){
+
+        System.out.println("课名："+cName+"课简:"+cDetail+"课成数量:"+cCount);
         Course course = new Course();
-        Date date = DateKit.dateFormat(cCreateTime, "yyyy-MM-dd");//生成这一类型的date
-        System.out.println(date);
-        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
-        System.out.println(timeLong);
         course.setcName(cName);
-        course.setcCreateTime(timeLong);
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
-        course.setcId(uu32);
+
         courseService.insert(course);
         return "redirect:article-list.html";
     }
@@ -91,22 +85,22 @@ public class CourseController {
     /**
      * 跟新课程
      * @param cName 课名
-     * @param cCreateTime 创建时间
+
      * @param cDetail  课简
      * @param cCount   总课数
      * @return 返回到course界面
      */
     @RequestMapping("courseUpdate")
-    public String courseUpdate(String cName, String cCreateTime, String cDetail, String cCount,String cId){
+    public String courseUpdate(String cName, String cDetail, String cCount,String cId){
 
-        System.out.println("课名："+cName+"修改时间:"+cCreateTime+"课简:"+cDetail+"课成数量:"+cCount+"id:"+cId);
+        System.out.println("课名："+cName+"课简:"+cDetail+"课成数量:"+cCount+"id:"+cId);
         Course course = new Course();
         //Date date = DateKit.dateFormat(cCreateTime, "yyyy-MM-dd");//生成这一类型的date
         //System.out.println(date);
         //long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
         //System.out.println(timeLong);
         course.setcName(cName);
-        course.setcCreateTime(Long.parseLong(cCreateTime));
+
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
         course.setcId(cId);
@@ -161,20 +155,17 @@ public class CourseController {
      * @return 返回到detail界面
      */
     @RequestMapping("detailInsert")
-    public String detailInsert(String dName, String dCreateTime, String dDetail, String dNumber, String dTimeLength, String cId){
-        System.out.println("章节名："+dName+"创建时间:"+dCreateTime+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength+"总课id："+cId);
+    public String detailInsert(String dName, String dDetail, String dNumber, String dTimeLength, String cId,RedirectAttributes attr){
+        System.out.println("章节名："+dName+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength+"总课id："+cId);
         Detail detail = new Detail();
-        Date date = DateKit.dateFormat(dCreateTime, "yyyy-MM-dd");//生成这一类型的date
-        System.out.println(date);
-        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
-        System.out.println(timeLong);
         detail.setdName(dName);
-        detail.setdCreateTime(timeLong);
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
         detail.setdCidId(cId);
         detailService.insert(detail);
+        System.out.println("修改课程的id："+cId);
+        attr.addAttribute("cId",cId);
         return "redirect:detail-list.html";//返回详课页面
     }
     /**
@@ -197,22 +188,23 @@ public class CourseController {
      * @return 返回到course界面
      */
     @RequestMapping("detailUpdate")
-    public String detailUpdate(String dName, String dCreateTime, String dDetail, String dNumber, String dTimeLength, String dId, RedirectAttributes attr){
-        System.out.println("课名："+dName+"创建时间:"+dCreateTime+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength);
+    public String detailUpdate(String dName, String dDetail, String dNumber, String dTimeLength, String dId,String dCidId, RedirectAttributes attr){
+        System.out.println("课名："+dName+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength);
        Detail detail = new Detail();
 //        Date date = DateKit.dateFormat(dCreateTime, "yyyy-MM-dd");//生成这一类型的date
 //        System.out.println(date);
 //        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
 //        System.out.println(timeLong);
         detail.setdName(dName);
-        detail.setdCreateTime(Long.parseLong(dCreateTime));
+
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
-        //detail.setdId(dId);
+        detail.setdId(dId);
         detailService.update(detail);
-        attr.addAttribute("cId",detail.getdCidId());
-        return "redirect:detail-list.html?cId=";//返回界面
+        System.out.println("修改课程的id："+dCidId);
+        attr.addAttribute("cId",dCidId);
+        return "redirect:detail-list.html";//返回界面
     }
     /**
      * 删除课程

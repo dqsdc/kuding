@@ -4,10 +4,12 @@ import com.qilinxx.kuding.domain.mapper.DetailMapper;
 import com.qilinxx.kuding.domain.model.Detail;
 import com.qilinxx.kuding.domain.model.DetailExample;
 import com.qilinxx.kuding.service.DetailService;
+import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,6 +42,11 @@ public class DetailServiceImpl implements DetailService {
     public void insert(Detail detail) {
         String uu32 = UUID.UU32();//生成uuid
         detail.setdId(uu32);
+        Date now = DateKit.getNow();
+        System.out.println("当前时间："+now);
+        long time = now.getTime();
+        System.out.println("转换后的："+time);
+        detail.setdCreateTime(time);
         detailMapper.insertSelective(detail);
     }
 
@@ -59,6 +66,11 @@ public class DetailServiceImpl implements DetailService {
      */
     @Override
     public void update(Detail detail) {
+        Date now = DateKit.getNow();
+        System.out.println("当前时间："+now);
+        long time = now.getTime();
+        System.out.println("转换后的："+time);
+        detail.setdCreateTime(time);
         detailMapper.updateByPrimaryKeySelective(detail);
     }
 
