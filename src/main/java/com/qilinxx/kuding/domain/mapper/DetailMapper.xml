@@ -72,4 +72,7 @@
   <sql id="Base_Column_List">
     d_id, d_name, d_number, d_time_length, d_detail, d_create_time, d_remark, d_cid_id
   </sql>
+  <select id="selectAllByCid" resultMap="BaseResultMap">
+    SELECT * FROM web_detail WHERE d_cid_id = #{id}
+  </select>
 </mapper>

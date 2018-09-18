@@ -77,4 +77,7 @@
     t_id, t_account, t_password, t_name, t_age, t_sex, t_state, t_create_time, t_degree, 
     t_detail, t_head_image, t_remark
   </sql>
+  <select id="selectByName" resultMap="BaseResultMap">
+    SELECT * from web_teacher WHERE t_name=#{name}
+  </select>
 </mapper>

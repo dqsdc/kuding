@@ -20,8 +20,8 @@ public class DetailServiceImpl implements DetailService {
      * @return
      */
 
-    public List<Detail> getAllbycid(String id) {
-        return detailMapper.selectAllbycid(id);
+    public List<Detail> getAllByCid(String id) {
+        return detailMapper.selectAllByCid(id);
        // return null;
     }
 

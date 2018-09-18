@@ -132,7 +132,7 @@ public class CourseController {
     @RequestMapping("/detail")
     public String listDetail(String cId, Model model){
         List<Detail> detailListe = new ArrayList<>();
-        detailListe=detailService.getAllbycid(cId);
+        detailListe=detailService.getAllByCid(cId);
         model.addAttribute("detailListe",detailListe);
         return "detail";
     }

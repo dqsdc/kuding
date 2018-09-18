@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DetailService {
 
-    List<Detail> getAllbycid(String id);//查询所有外键字段为id的数据
+    List<Detail> getAllByCid(String id);//查询所有外键字段为id的数据
 
     void insert(Detail detail);//添加章节课程
 
