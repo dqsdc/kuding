@@ -2,7 +2,9 @@ package com.qilinxx.kuding.service.impl;
 
 import com.qilinxx.kuding.domain.mapper.DetailMapper;
 import com.qilinxx.kuding.domain.model.Detail;
+import com.qilinxx.kuding.domain.model.DetailExample;
 import com.qilinxx.kuding.service.DetailService;
+import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,14 @@ public class DetailServiceImpl implements DetailService {
      * @return
      */
 
-    public List<Detail> getAllByCid(String id) {
-        return detailMapper.selectAllByCid(id);
+    public List<Detail> getAllbycid(String id) {
+//        DetailExample example=new DetailExample();
+//        DetailExample.Criteria criteria = example.createCriteria();
+//        criteria.andDCidIdEqualTo(id);
+
+       return detailMapper.selectAllbycid(id);
        // return null;
+       // return  detailMapper.selectByExample(example);
     }
 
     /**
@@ -31,6 +38,8 @@ public class DetailServiceImpl implements DetailService {
      */
 
     public void insert(Detail detail) {
+        String uu32 = UUID.UU32();//生成uuid
+        detail.setdId(uu32);
         detailMapper.insertSelective(detail);
     }
 
@@ -51,5 +60,14 @@ public class DetailServiceImpl implements DetailService {
     @Override
     public void update(Detail detail) {
         detailMapper.updateByPrimaryKeySelective(detail);
+    }
+
+    /**
+     * 根据id删除章节
+     * @param did
+     */
+    @Override
+    public void deleteById(String did) {
+        detailMapper.deleteByPrimaryKey(did);
     }
 }

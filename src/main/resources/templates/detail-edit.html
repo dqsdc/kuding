@@ -30,26 +30,31 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" th:action="courseUpdate" th:method="post">
+	<form class="form form-horizontal" id="form-article-add" th:action="detailUpdate" th:method="post">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程名：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>章节名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${course.cName}" placeholder="" id="articletitle" name="cName">
+				<input type="text" class="input-text" th:value="${detail.dName}" placeholder="" id="articletitle" name="dName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">课程节数：</label>
+			<label class="form-label col-xs-4 col-sm-2">章节节数：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${course.cCount}" placeholder="" id="articletitle2" name="cCount">
+				<input type="text" class="input-text" th:value="${detail.dNumber}" placeholder="" id="articletitle2" name="dNumber">
 			</div>
 		</div>
-	
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">章节课程时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" th:value="${detail.dTimeLength}" placeholder="" id="articletitle3" name="dTimeLength">
+			</div>
+		</div>
 		
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">文章摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="cDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)" th:text="${course.cDetail}"></textarea>
+				<textarea name="dDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"  th:text="${detail.dDetail}"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
@@ -58,14 +63,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">创建日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="commentdatemin" name="cCreateTime" class="input-text " th:value="${course.cCreateTime}" >
+				<input type="text" id="commentdatemin" name="dCreateTime" class="input-text " th:value="${detail.dCreateTime}" >
 			</div>
 		</div>
 
 		<div class="row cl">
 
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="courseid" name="cId" class="input-text " th:value="${course.cId}" th:hidden="true">
+				<input type="text" id="detailid" name="dId" class="input-text " th:value="${detail.dId}" th:hidden="true">
 			</div>
 		</div>
 		<div class="row cl">

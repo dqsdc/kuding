@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class CourseController {
     public String  deleteCourse( String cId){
         System.out.println(cId);
         //得到隐藏域id，根据id删除对象
-       // courseService.delete(cId);
+        courseService.delete(cId);
         //重新返回到刚才的界面，并且课程已减少
         return "sucess";
     }
@@ -129,22 +130,25 @@ public class CourseController {
      * 根据隐藏域id，取课程详细表中数据，返回listDetail
      * @return 返回到detail界面
      */
-    @RequestMapping("/detail")
+    @RequestMapping("detail-list.html")
     public String listDetail(String cId, Model model){
+        System.out.println("课程id"+cId);
         List<Detail> detailListe = new ArrayList<>();
-        detailListe=detailService.getAllByCid(cId);
+        detailListe=detailService.getAllbycid(cId);
+        System.out.println(detailListe+"长度："+detailListe.size());
         model.addAttribute("detailListe",detailListe);
-        return "detail";
+        model.addAttribute("cId",cId);
+        return "detail-list";
     }
     /**
      *
      * @return 跳转到添加详课页面
      * @param cId 课程cid
      */
-    @RequestMapping("/detail/insertUI")
+    @RequestMapping("detail-add.html")
     public String detailInsertUI(String cId, Model model){
-
-        return "detailInsert";
+        model.addAttribute("cId",cId);
+        return "detail-add";
     }
 
     /**
@@ -156,33 +160,32 @@ public class CourseController {
      * @param  dTimeLength   课时长
      * @return 返回到detail界面
      */
-    @RequestMapping("/detail/insert")
+    @RequestMapping("detailInsert")
     public String detailInsert(String dName, String dCreateTime, String dDetail, String dNumber, String dTimeLength, String cId){
-        String uu32 = UUID.UU32();//生成uuid
-        System.out.println("课名："+dName+"创建时间:"+dCreateTime+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength);
+        System.out.println("章节名："+dName+"创建时间:"+dCreateTime+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength+"总课id："+cId);
         Detail detail = new Detail();
         Date date = DateKit.dateFormat(dCreateTime, "yyyy-MM-dd");//生成这一类型的date
         System.out.println(date);
         long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
         System.out.println(timeLong);
-        detail.setdId(dName);
-        detail.setdCidId(cId);
+        detail.setdName(dName);
         detail.setdCreateTime(timeLong);
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
+        detail.setdCidId(cId);
         detailService.insert(detail);
-        return "";//返回详课页面
+        return "redirect:detail-list.html";//返回详课页面
     }
     /**
      *前台传一个课祥id进来，查找对象传过去
      * @return 跳转到修改页面
      */
-    @RequestMapping("/detail/updateUI")
+    @RequestMapping("detail-edit.html")
     public String detailUpdateUI(Model model, String dId){
         Detail detail = detailService.selectById(dId);
         model.addAttribute("detail",detail);
-        return "detailUpdate";
+        return "detail-edit";
     }
     /**
      * 跟新详课程
@@ -193,31 +196,35 @@ public class CourseController {
      * @param  dTimeLength   课时长
      * @return 返回到course界面
      */
-    @RequestMapping("/detail/update")
-    public String detailUpdate(String dName, String dCreateTime, String dDetail, String dNumber, String dTimeLength, String dId){
+    @RequestMapping("detailUpdate")
+    public String detailUpdate(String dName, String dCreateTime, String dDetail, String dNumber, String dTimeLength, String dId, RedirectAttributes attr){
         System.out.println("课名："+dName+"创建时间:"+dCreateTime+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength);
-        Detail detail = new Detail();
-        Date date = DateKit.dateFormat(dCreateTime, "yyyy-MM-dd");//生成这一类型的date
-        System.out.println(date);
-        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
-        System.out.println(timeLong);
-        detail.setdId(dName);
-        detail.setdCreateTime(timeLong);
+       Detail detail = new Detail();
+//        Date date = DateKit.dateFormat(dCreateTime, "yyyy-MM-dd");//生成这一类型的date
+//        System.out.println(date);
+//        long timeLong = DateKit.getUnixTimeLong(date);//转化为long类型的时间
+//        System.out.println(timeLong);
+        detail.setdName(dName);
+        detail.setdCreateTime(Long.parseLong(dCreateTime));
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
-        detail.setdId(dId);
+        //detail.setdId(dId);
         detailService.update(detail);
-        return "";//返回界面
+        attr.addAttribute("cId",detail.getdCidId());
+        return "redirect:detail-list.html?cId=";//返回界面
     }
     /**
      * 删除课程
      */
-    @RequestMapping("/detail/delete")
-    public void deleteDetail(String did){
+    @RequestMapping("deleteDetail")
+    @ResponseBody
+    public String  deleteDetail(String dId){
         //得到隐藏域id，根据id删除对象
-        courseService.delete(did);
+        System.out.println("章节id："+dId);
+        detailService.deleteById(dId);
         //重新返回到刚才的界面，并且课程已减少
+        return "sucess";
     }
     @RequestMapping("/index2")
     public String index2(){
