@@ -1,0 +1,199 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="Bookmark" href="/favicon.ico" >
+	<link rel="Shortcut Icon" href="/favicon.ico" />
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="lib/html5shiv.js"></script>
+	<script type="text/javascript" src="lib/respond.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+	<!--[if IE 6]>
+	<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+	<script>DD_belatedPNG.fix('*');</script>
+	<![endif]-->
+	<!--/meta 作为公共模版分离出去-->
+
+	<title>修改老师</title>
+</head>
+<body>
+<article class="page-container">
+	<form th:action="editTeacher" method="post" class="form form-horizontal" id="form-member-add">
+		<input type="hidden" th:value="${teacher.tId}" name="tId"/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="username" name="tName" th:value="${teacher.tName}">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text" value="" placeholder="" id="password" name="tPassword" th:value="${teacher.tPassword}">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input th:value="0" name="tSex" type="radio" id="sex-1" checked>
+					<label for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input th:value="1" type="radio" id="sex-2" name="tSex">
+					<label for="sex-2">女</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input th:value=true name="tState" type="radio" id="state-1" checked>
+					<label for="state-1">启用</label>
+				</div>
+				<div class="radio-box">
+					<input th:value=false type="radio"  name="tState" id="state-2">
+					<label for="state-2">禁用</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" th:value="${teacher.tAccount}" placeholder="" id="mobile" name="tAccount">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"   th:value="${teacher.tAge}" name="tAge" id="email">
+			</div>
+		</div>
+		<!--<div class="row cl">-->
+			<!--<label class="form-label col-xs-4 col-sm-3">所在年级：</label>-->
+			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">-->
+				<!--<select class="select" size="1" name="sGrade">-->
+					<!--<option selected>请选择年级</option>-->
+					<!--<option value="一年级" id="option-1">一年级</option>-->
+					<!--<option value="二年级" id="option-2">二年级</option>-->
+					<!--<option value="三年级"  id="option-3">三年级</option>-->
+				<!--</select>-->
+				<!--</span> </div>-->
+		<!--</div>-->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">备注：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="tRemark" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript"  th:inline="javascript">
+    $(function(){
+
+
+        var sex = [[${teacher.tSex}]];
+        var state=[[${teacher.tState}]];
+        var tAge=[[${teacher.tAge}]];
+		//alert(state);
+
+        if(sex){
+            $("#sex-2").attr("checked","checked");
+		}else {
+            $("#sex-1").attr("checked","checked");
+		}
+        // if(sGrade=="一年级"){
+        //     $("#option-1").attr("selected","selected")
+        // }else if(sGrade=="二年级") {
+        //     $("#option-2").attr("selected","selected")
+        // }else{
+        //     $("#option-3").attr("selected","selected")
+		// }
+
+        if(state){
+            $("#state-1").attr("checked","checked");
+        }else {
+            $("#state-2").attr("checked","checked");
+        }
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-member-add").validate({
+            rules:{
+                username:{
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                sex:{
+                    required:true,
+                },
+                mobile:{
+                    required:true,
+                    isMobile:true,
+                },
+                email:{
+                    required:true,
+                    email:true,
+                },
+                uploadfile:{
+                    required:true,
+                },
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+
+                $(form).ajaxSubmit();
+
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('#btn-refresh').click();
+                //$("#btn-refresh ").trigger('click');
+
+                parent.layer.close(index);
+               // window.location.replace(location.href);
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

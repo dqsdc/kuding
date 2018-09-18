@@ -26,11 +26,11 @@
 	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span th:text="${student.sName}" class="f-18">张三</span>
-			<span th:text="${student.sGrade}" class="pl-10 f-12">余额：40</span>
+			<span th:text="${teacher.tName}" class="f-18">张三</span>
+			年龄：<span th:text="${teacher.tAge}" class="pl-10 f-12">40</span>
 		</dt>
-		<dd  th:if="${student.sRemark}==null" class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
-		<dd  th:unless="${student.sRemark}==null" th:text="${student.sRemark}" class="pt-10 f-12" style="margin-left:0">lalala</dd>
+		<dd  th:if="${teacher.tRemark}==''" class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+		<dd  th:unless="${teacher.tRemark}==''" th:text="${teacher.tRemark}" class="pt-10 f-12" style="margin-left:0">lalala</dd>
 	</dl>
 </div>
 <div class="pd-20">
@@ -38,24 +38,24 @@
 		<tbody>
 			<tr>
 				<th class="text-r" width="80">性别：</th>
-				<td th:if="${student.sSex}==false">男</td>
-				<td th:unless="${student.sSex}==false">女</td>
+				<td th:if="${teacher.tSex}==false">男</td>
+				<td th:unless="${teacher.tSex}==false">女</td>
 			</tr>
 			<tr>
 				<th class="text-r">手机：</th>
-				<td th:text="${student.sAccount}">13000000000</td>
+				<td th:text="${teacher.tAccount}">13000000000</td>
 			</tr>
-			<tr>
-				<th class="text-r">邮箱：</th>
-				<td th:text="${student.sEmail}">admin@mail.com</td>
-			</tr>
+			<!--<tr>-->
+				<!--<th class="text-r">邮箱：</th>-->
+				<!--<td th:text="${teacher.tEmail}">admin@mail.com</td>-->
+			<!--</tr>-->
 			<tr>
 				<th class="text-r">地址：</th>
 				<td>北京市 海淀区</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td th:text="${#dates.format(student.sCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014.12.20</td>
+				<td th:text="${#dates.format(teacher.tCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014.12.20</td>
 			</tr>
 			<tr>
 				<th class="text-r">积分：</th>

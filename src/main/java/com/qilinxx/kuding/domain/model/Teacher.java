@@ -135,4 +135,22 @@ public class Teacher {
     public void settRemark(String tRemark) {
         this.tRemark = tRemark == null ? null : tRemark.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "tId='" + tId + '\'' +
+                ", tAccount='" + tAccount + '\'' +
+                ", tPassword='" + tPassword + '\'' +
+                ", tName='" + tName + '\'' +
+                ", tAge=" + tAge +
+                ", tSex=" + tSex +
+                ", tState=" + tState +
+                ", tCreateTime=" + tCreateTime +
+                ", tDegree='" + tDegree + '\'' +
+                ", tDetail='" + tDetail + '\'' +
+                ", tHeadImage='" + tHeadImage + '\'' +
+                ", tRemark='" + tRemark + '\'' +
+                '}';
+    }
 }

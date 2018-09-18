@@ -30,18 +30,18 @@
 </head>
 <body>
 <article class="page-container">
-	<form th:action="addStudent" method="post" class="form form-horizontal" id="form-member-add">
+	<form th:action="addTeacher" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="username" name="sName">
+			<input type="text" class="input-text" value="" placeholder="" id="username" name="tName">
 		</div>
 	</div>
 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" value="" placeholder="" id="password" name="sPassword">
+				<input type="password" class="input-text" value="" placeholder="" id="password" name="tPassword">
 			</div>
 		</div>
 
@@ -49,11 +49,11 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input value="0" name="sSex" type="radio" id="sex-1" checked>
+					<input value="0" name="tSex" type="radio" id="sex-1" checked>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input th:value="1" type="radio" id="sex-2" name="sSex">
+					<input th:value="1" type="radio" id="sex-2" name="tSex">
 					<label for="sex-2">女</label>
 				</div>
 				<!--<div class="radio-box">-->
@@ -66,11 +66,11 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input value=true name="sState" type="radio" id="state-1" checked>
+					<input value=true name="tState" type="radio" id="state-1" checked>
 					<label for="state-1">启用</label>
 				</div>
 				<div class="radio-box">
-					<input th:value=false type="radio" id="state-2" name="sState">
+					<input th:value=false type="radio" id="state-2" name="tState">
 					<label for="state-2">禁用</label>
 				</div>
 				<!--<div class="radio-box">-->
@@ -82,13 +82,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="sAccount">
+				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="tAccount">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="sEmail" id="email">
+				<input type="text" class="input-text" name="tAge" id="email">
 			</div>
 		</div>
 		<!--<div class="row cl">-->
@@ -99,21 +99,21 @@
 				<!--<input type="file" multiple name="file-2" class="input-file">-->
 				<!--</span> </div>-->
 		<!--</div>-->
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在年级：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="sGrade">
-					<option selected>请选择年级</option>
-					<option value="一年级">一年级</option>
-					<option value="二年级">二年级</option>
-					<option value="三年级">三年级</option>
-				</select>
-				</span> </div>
-		</div>
+		<!--<div class="row cl">-->
+			<!--<label class="form-label col-xs-4 col-sm-3">所在年级：</label>-->
+			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">-->
+				<!--<select class="select" size="1" name="sGrade">-->
+					<!--<option selected>请选择年级</option>-->
+					<!--<option value="一年级">一年级</option>-->
+					<!--<option value="二年级">二年级</option>-->
+					<!--<option value="三年级">三年级</option>-->
+				<!--</select>-->
+				<!--</span> </div>-->
+		<!--</div>-->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="sRemark" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<textarea name="tRemark" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 			</div>
 		</div>
