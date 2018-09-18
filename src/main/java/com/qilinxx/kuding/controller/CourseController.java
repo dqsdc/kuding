@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,10 +116,13 @@ public class CourseController {
      * 删除课程
      */
     @RequestMapping("deleteCourse")
-    public void deleteCourse(String cid){
+    @ResponseBody
+    public String  deleteCourse( String cId){
+        System.out.println(cId);
         //得到隐藏域id，根据id删除对象
-        courseService.delete(cid);
+       // courseService.delete(cId);
         //重新返回到刚才的界面，并且课程已减少
+        return "sucess";
     }
     /**
      * 课程详细
