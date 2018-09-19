@@ -43,9 +43,13 @@ public class CourseServiceImpl implements CourseService {
         course.setcCreateTime(time);
         courseMapper.updateByPrimaryKeySelective(course);
     }
-//删除课程
+/**
+ * 删除课程
+ */
+
 
     public void delete(String id) {
+
         courseMapper.deleteByPrimaryKey(id);
     }
 
