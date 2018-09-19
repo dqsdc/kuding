@@ -73,4 +73,7 @@
   <select id="selectIdByName" resultType="string">
     SELECT c_id FROM web_course WHERE c_name=#{name}
   </select>
+  <select id="selectOnUseCourse" resultMap="BaseResultMap">
+    SELECT * from web_course WHERE c_remark="1"
+  </select>
 </mapper>

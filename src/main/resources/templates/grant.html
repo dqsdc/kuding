@@ -27,7 +27,7 @@
         <form th:action="@{/addGrant}" method="post">
             <table class="table table-bg">
                 <tbody>
-                <div ><span th:text="${msg}" style="color: red;"> </span></div>
+                <div><span th:text="${msg}" style="color: red;"> </span></div>
                 <tr>
                     <th width="100" class="text-r"><span class="c-red">*</span> 学生姓名：</th>
                     <td><input type="text" style="width:200px" class="input-text"
@@ -58,11 +58,11 @@
                     <th class="text-r"><span class="c-red">*</span> 课程类别：</th>
                     <td>
                         <select name="cName" class="select" style="width: 200px">
-                            <option value="0">请选择</option>
-                            <option value="MySQL从删库到跑路">MySQL从删库到跑路</option>
-                            <option value="Python从入门到放弃">Python从入门到放弃</option>
-                            <option value="Java从茂盛到秃头">Java从茂盛到秃头</option>
+                            <option value="">--请选择--</option>
+                            <option th:each="course,stat:${courses}" th:value="${course.cName}"
+                                    th:text="${course.cName}"></option>
                         </select>
+
                     </td>
                 </tr>
                 <tr>
