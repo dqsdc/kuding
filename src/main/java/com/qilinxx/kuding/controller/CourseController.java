@@ -91,6 +91,7 @@ public class CourseController {
      * @return 返回到course界面
      */
     @RequestMapping("courseUpdate")
+    @ResponseBody
     public String courseUpdate(String cName, String cDetail, String cCount,String cId){
 
         System.out.println("课名："+cName+"课简:"+cDetail+"课成数量:"+cCount+"id:"+cId);
@@ -105,7 +106,7 @@ public class CourseController {
         course.setcCount(Integer.parseInt(cCount));
         course.setcId(cId);
         courseService.update(course);
-        return "redirect:article-list.html";
+        return "sucess";
     }
     /**
      * 删除课程
@@ -154,6 +155,7 @@ public class CourseController {
      * @return 返回到detail界面
      */
     @RequestMapping("detailInsert")
+    @ResponseBody
     public String detailInsert(String dName, String dDetail, String dNumber, String dTimeLength, String cId,RedirectAttributes attr){
         System.out.println("章节名："+dName+"课简:"+dDetail+"课第几章:"+dNumber+"课时长："+dTimeLength+"总课id："+cId);
         Detail detail = new Detail();
@@ -165,7 +167,7 @@ public class CourseController {
         detailService.insert(detail);
         System.out.println("修改课程的id："+cId);
         attr.addAttribute("cId",cId);
-        return "redirect:detail-list.html";//返回详课页面
+        return "sucess";
     }
     /**
      *前台传一个课祥id进来，查找对象传过去
