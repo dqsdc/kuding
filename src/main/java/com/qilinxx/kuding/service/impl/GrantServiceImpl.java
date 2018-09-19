@@ -4,11 +4,13 @@ import com.qilinxx.kuding.domain.mapper.*;
 import com.qilinxx.kuding.domain.model.*;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 import com.qilinxx.kuding.service.GrantService;
+import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,9 +42,22 @@ public class GrantServiceImpl implements GrantService {
     }
 
     @Override
-    public Grant selectGrantById(String id) {
-        return grantMapper.selectByPrimaryKey(id);
+    public List<Course> getCourseList() {
+        return courseMapper.selectOnUseCourse();
     }
+
+    @Override
+    public String updateGrantTimeById(String gid, String time) {
+        if (time==null||"".equals(time)) return "时间未选择";
+        Grant grant = grantMapper.selectByPrimaryKey(gid);
+        Date date = DateKit.dateFormat(time);
+        Long unixDate = DateKit.getUnixTimeLong(date);
+        grant.setgTime(unixDate);
+        grantMapper.updateByPrimaryKey(grant);
+        System.out.println("添加成功");
+        return "添加成功";
+    }
+
 
     @Override
     public String addGrant(String sName, String sPhone, String tName, String cName) {
@@ -52,12 +67,10 @@ public class GrantServiceImpl implements GrantService {
         if (!sName.equals(student.getsName())) return "学生名不正确";
         if (teacher == null) return "老师姓名不正确";
         String cId = courseMapper.selectIdByName(cName);
-        System.out.println("cid"+cId);
         List<Detail> details = detailMapper.selectAllByCid(cId);
-        System.out.println("List<Detail>-->"+details.size());
+        if (details.size() == 0) return "选择课程已失效";
         for (Detail d : details) {
-            System.out.println(d);
-            Grant grant=new Grant();
+            Grant grant = new Grant();
             grant.setgTidId(teacher.gettId());
             grant.setgDidId(d.getdId());
             grant.setgSidId(student.getsId());
