@@ -47,6 +47,7 @@ public class DetailServiceImpl implements DetailService {
         long time = now.getTime();
         System.out.println("转换后的："+time);
         detail.setdCreateTime(time);
+        detail.setdRemark("0");
         detailMapper.insertSelective(detail);
     }
 

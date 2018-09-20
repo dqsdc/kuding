@@ -103,16 +103,39 @@
 <script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="lib/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" th:inline="javascript">
-
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
 
     $("#form-article-add").validate({
+        rules:{
+            dName :{
+                required:true,
+            },
+            dNumber :{
+                required:true,
+                number:true,
+            },
+            dTimeLength:{
+                required:true,
 
+                max:50,
+                min:20,
+            },
+            dDetail:{
+                required:true,
+                minlength:10,
+                maxlength:100,
+            },
+        },
         onkeyup:false,
         focusCleanup:true,
         success:"valid",
         submitHandler:function(form){
 
-            alert("mmp");
+
             $(form).ajaxSubmit();
 
             var index = parent.layer.getFrameIndex(window.name);

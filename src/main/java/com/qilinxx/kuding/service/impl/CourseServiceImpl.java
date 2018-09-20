@@ -31,6 +31,7 @@ public class CourseServiceImpl implements CourseService {
         long timeLong = now.getTime();
         System.out.println("转换后的："+timeLong);
         course.setcCreateTime(timeLong);
+        course.setcRemark("0");//设置状态为未发布
         courseMapper.insert(course);
     }
 //更新课程

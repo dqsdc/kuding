@@ -107,8 +107,7 @@ $('.table-sort').dataTable({
 // 	layer.full(index);
 // }
     function article_add(title,url,cId,w,h){
-        alert(url);
-        alert(cId);
+
         layer_show(title,url+"?cId="+cId,w,h);
     }
 /*章节课程-编辑*/
@@ -121,8 +120,7 @@ $('.table-sort').dataTable({
 // 	layer.full(index);
 // }
     function article_edit(title,url,dId,w,h){
-        alert(url);
-        alert(dId);
+
         layer_show(title,url+"?dId="+dId,w,h);
     }
 /*资讯-测试*/
@@ -132,15 +130,15 @@ function test1(id) {
 
 /*章节-删除*/
 function article_del(obj,dId){
-       alert(dId)
+
 	layer.confirm('确认要删除吗？',function(index){
-          alert(123);
+
 		$.ajax({
 			type: 'POST',
 			url: 'deleteDetail',
 			data:{dId:dId},
 			success: function(data){
-    alert("chenggong ");
+
 			    console.log(data);
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time :1000});
