@@ -83,4 +83,28 @@ public class DetailServiceImpl implements DetailService {
     public void deleteById(String did) {
         detailMapper.deleteByPrimaryKey(did);
     }
+
+    /**
+     * 停用详细课程
+     * @param dId
+     * @return
+     */
+    @Override
+    public Integer stopDetail(String dId) {
+        Detail detail = detailMapper.selectByPrimaryKey(dId);
+        detail.setdRemark("0");
+        return detailMapper.updateByPrimaryKeySelective(detail);
+    }
+
+    /**
+     * 启用详细课程
+     * @param dId
+     * @return
+     */
+    @Override
+    public Integer startDetail(String dId) {
+        Detail detail = detailMapper.selectByPrimaryKey(dId);
+        detail.setdRemark("1");
+        return detailMapper.updateByPrimaryKeySelective(detail);
+    }
 }

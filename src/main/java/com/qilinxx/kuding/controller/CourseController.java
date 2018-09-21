@@ -218,8 +218,53 @@ public class CourseController {
         //重新返回到刚才的界面，并且课程已减少
         return "sucess";
     }
-    @RequestMapping("/index2")
-    public String index2(){
-        return "index2";
+
+    /**
+     * 禁用课程
+     * @param cId
+     * @return
+     */
+    @RequestMapping("stopCourse")
+    @ResponseBody
+    public  String stopCourse(String cId){
+        System.out.println("禁用课程id："+cId);
+        Integer i = courseService.stopCourse(cId);
+        return "sucess";
+    }
+    /**
+     * 开启课程
+     * @param cId
+     * @return
+     */
+    @RequestMapping("startCourse")
+    @ResponseBody
+    public  String startCourse(String cId){
+        System.out.println("启用课程id："+cId);
+        Integer i = courseService.startCourse(cId);
+        return "sucess";
+    }
+    /**
+     * 禁用详细课程
+     * @param dId
+     * @return
+     */
+    @RequestMapping("stopDetail")
+    @ResponseBody
+    public  String stopDetail(String dId){
+        System.out.println("禁用详细课程id："+dId);
+        Integer i = detailService.stopDetail(dId);
+        return "sucess";
+    }
+    /**
+     * 开启课程
+     * @param cId
+     * @return
+     */
+    @RequestMapping("startDetail")
+    @ResponseBody
+    public  String startDetail(String dId){
+        System.out.println("启用详细课程id："+dId);
+        Integer i = detailService.startDetail(dId);
+        return "sucess";
     }
 }

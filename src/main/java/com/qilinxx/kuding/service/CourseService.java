@@ -15,4 +15,8 @@ public interface CourseService {
     void delete(String id);//根据id删除科目
 
     Course selecteById(String cId);//根据id查找科目
+
+    Integer stopCourse(String cId);//根据cId禁用课程
+
+    Integer startCourse(String cId);//根据cId启用课程
 }

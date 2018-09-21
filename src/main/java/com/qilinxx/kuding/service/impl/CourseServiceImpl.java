@@ -54,10 +54,38 @@ public class CourseServiceImpl implements CourseService {
         courseMapper.deleteByPrimaryKey(id);
     }
 
-    //根据cid查询科目
+    /**根据cid查询科目
+     *
+     * @param cId
+     * @return
+     */
     @Override
     public Course selecteById(String cId) {
         Course course = courseMapper.selectByPrimaryKey(cId);
         return course;
+    }
+
+    /**
+     * 根据cId停用课程
+     * @param cId
+     * @return
+     */
+    @Override
+    public Integer stopCourse(String cId) {
+        Course course = courseMapper.selectByPrimaryKey(cId);
+        course.setcRemark("0");
+        return  courseMapper.updateByPrimaryKeySelective(course);
+    }
+
+    /**
+     * 根据cId开启课程
+     * @param cId
+     * @return
+     */
+    @Override
+    public Integer startCourse(String cId) {
+        Course course = courseMapper.selectByPrimaryKey(cId);
+        course.setcRemark("1");
+        return courseMapper.updateByPrimaryKeySelective(course);
     }
 }

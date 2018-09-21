@@ -15,4 +15,8 @@ public interface DetailService {
     void update(Detail detail);//更新详课信息
 
     void deleteById(String did);//通过id删除章节课程
+
+    Integer stopDetail(String dId);//通过id停用课程
+
+    Integer startDetail(String dId);//通过id开启课程
 }
