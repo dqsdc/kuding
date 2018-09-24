@@ -1,11 +1,16 @@
 package com.qilinxx.kuding.service;
 
 import com.qilinxx.kuding.domain.model.Course;
+import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 
 import java.util.List;
 
 public interface GrantService {
+
+    //查找对应授课老师个人信息
+    Teacher selectShowTeacher(String id);
+
     //获得所有的授权记录，包装成增强型 GrantVo
     List<GrantVo> selectAllGrant();
 
@@ -14,6 +19,9 @@ public interface GrantService {
 
     //根据授课记录的uuid更新时间
     String updateGrantTimeById(String gid, String time);
+
+    //根据授课记录的uuid更新时间
+    String updateStatusById(String gid);
 
     /**
      * 添加一条授课记录

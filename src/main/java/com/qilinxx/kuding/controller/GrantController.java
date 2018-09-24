@@ -1,6 +1,7 @@
 package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.domain.model.Course;
+import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 import com.qilinxx.kuding.service.GrantService;
 import com.qilinxx.kuding.util.Commons;
@@ -32,6 +33,16 @@ public class GrantController {
         return "grant";
     }
 
+    //显示购买课程页面
+    @RequestMapping("member-show.html")
+    public String showMember(HttpServletRequest request,String tid) {
+        System.out.println(tid);
+        Teacher teacher = grantService.selectShowTeacher(tid);
+        request.setAttribute("teacher", teacher);
+        request.setAttribute("commons", new Commons());
+        return "member-show";
+    }
+
     //显示更改时间页面，并将对应的gid传入
     @RequestMapping("grant-edit.html")
     public String showGrantEdit(HttpSession session, String gid) {
@@ -46,6 +57,7 @@ public class GrantController {
         System.out.println(grants.size());
         System.out.println(grants.get(0).toString());
         request.setAttribute("grants", grants);
+        request.setAttribute("size",grants.size());
         request.setAttribute("commons",new Commons());
         return "grant-list";
     }
@@ -55,11 +67,15 @@ public class GrantController {
     @ResponseBody
     public String editGrantTime(HttpSession session, String time) {
         String gid = (String) session.getAttribute("gid");
-        System.out.println(gid+"---"+time);
-        String msg = grantService.updateGrantTimeById(gid, time);
-        return msg;
+        return grantService.updateGrantTimeById(gid, time);
     }
 
+    //取消课程，将授课状态gRecord改为 已取消，并且删除 会议间
+    @RequestMapping("/grant-cancel")
+    @ResponseBody
+    public String cancel(String gid) {
+        return grantService.updateStatusById(gid);
+    }
     /**
      * 添加授课记录
      *
@@ -68,7 +84,6 @@ public class GrantController {
      * @param sPhone  学生手机号
      * @param tName   老师姓名
      * @param cName   课程名
-     * @return
      */
     @RequestMapping("/addGrant")
     public String addGrant(HttpServletRequest request, String sName, String sPhone, String tName, String cName) {

@@ -136,6 +136,8 @@ function member_stop(obj,id){
 			type: 'POST',
 			url: basePath+'/stopStudent?uid='+id,
 			success: function(data){
+                alert(data);
+                console.log(data);
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none"  href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');//th:onclick="'javascript:member_start('+this+',\''+${student.sId}+'\')'"
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
 				$(obj).remove();
