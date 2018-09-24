@@ -10,9 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +39,6 @@ public class CourseController {
      */
     @RequestMapping("article-add.html")
     public String courseInsertUI() {
-
         return "article-add";
     }
 
@@ -59,7 +56,6 @@ public class CourseController {
         course.setcName(cName);
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
-
         courseService.insert(course);
         return "redirect:article-list.html";
     }
@@ -87,8 +83,6 @@ public class CourseController {
     @RequestMapping("courseUpdate")
     @ResponseBody
     public String courseUpdate(String cName, String cDetail, String cCount, String cId) {
-
-
         Course course = new Course();
         course.setcName(cName);
         course.setcDetail(cDetail);
@@ -118,10 +112,21 @@ public class CourseController {
      */
     @RequestMapping("detail-list.html")
     public String listDetail(String cId, Model model) {
-        List<Detail> detailListe = new ArrayList<>();
-        detailListe = detailService.getAllByCid(cId);
-        model.addAttribute("detailListe", detailListe);
-        model.addAttribute("cId", cId);
+        String cName = courseService.selecteById(cId).getcName();//根据id，查询到课程名
+        //如果是预约课，查询dRemark为3的所有对象
+        if (cName.equals("php")){
+            List<Detail> detailList = detailService.selectAllByRemark("3");
+            System.out.println(detailList);
+            model.addAttribute("detailList",detailList);
+            model.addAttribute("cId", cId);
+        }
+        else {
+            List<Detail> detailListe = new ArrayList<>();
+            detailListe = detailService.getAllByCid(cId);
+            model.addAttribute("detailList", detailListe);
+            model.addAttribute("cId", cId);
+        }
+
         return "detail-list";
     }
 

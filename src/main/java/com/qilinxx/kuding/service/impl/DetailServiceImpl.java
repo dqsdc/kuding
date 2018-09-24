@@ -25,13 +25,10 @@ public class DetailServiceImpl implements DetailService {
      */
 
     public List<Detail> getAllByCid(String id) {
-//        DetailExample example=new DetailExample();
-//        DetailExample.Criteria criteria = example.createCriteria();
-//        criteria.andDCidIdEqualTo(id);
+
 
        return detailMapper.selectAllByCid(id);
-       // return null;
-       // return  detailMapper.selectByExample(example);
+
     }
 
     /**
@@ -100,5 +97,11 @@ public class DetailServiceImpl implements DetailService {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("1");
         return detailMapper.updateByPrimaryKeySelective(detail);
+    }
+
+    @Override
+    public List<Detail> selectAllByRemark(String s) {
+        List<Detail> detailList = detailMapper.selectAllByRemark(s);
+        return detailList;
     }
 }

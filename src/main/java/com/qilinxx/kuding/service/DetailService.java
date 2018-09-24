@@ -19,4 +19,6 @@ public interface DetailService {
     Integer stopDetail(String dId);//通过id停用课程
 
     Integer startDetail(String dId);//通过id开启课程
+
+    List<Detail> selectAllByRemark(String s);
 }

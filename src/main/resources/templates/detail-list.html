@@ -43,20 +43,19 @@
 			<tbody>
 
 
-			    <tr th:each="detail, interStat : ${detailListe}" class="text-c">
+			    <tr th:each="detail, interStat : ${detailList}" class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
 					<td th:text="${interStat.count}"></td>
 					<td th:text="${detail.dName}"></td>
 					<td th:text="${detail.dNumber}"></td>
-
 					<td th:text="${#dates.format(detail.dCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
 					<td th:text="${detail.dTimeLength}"></td>
-					<td class="td-status" th:if="${detail.dRemark eq '1'}"><span class="label label-success radius">已启用</span></td>
-					<td class="td-status" th:unless="${detail.dRemark eq '1'}"><span class="label label-defaunt radius">已停用</span></td>
-					<td class="f-14 td-manage"><a th:if="${detail.dRemark eq '1'}" style="text-decoration:none"
+					<td class="td-status" th:if="${detail.dRemark eq '1'||detail.dRemark eq '3'}"><span class="label label-success radius">已启用</span></td>
+					<td class="td-status" th:unless="${detail.dRemark eq '1'||detail.dRemark eq '3'}"><span class="label label-defaunt radius">已停用</span></td>
+					<td class="f-14 td-manage"><a th:if="${detail.dRemark eq '1'||detail.dRemark eq '3'}" style="text-decoration:none"
 												  th:onclick="'javascript:article_stop('+this+',\''+${detail.dId}+'\')'"
 												  href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-						<a  th:unless="${detail.dRemark eq '1'}" style="text-decoration:none" th:onclick="'javascript:article_start('+this+',\''+${detail.dId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+						<a  th:unless="${detail.dRemark eq '1'||detail.dRemark eq '3'}" style="text-decoration:none" th:onclick="'javascript:article_start('+this+',\''+${detail.dId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
 						<a style="text-decoration:none" class="ml-5 " th:onclick="'javascript:article_edit(\''+修改章节课+'\',\''+detail-edit.html+'\',\''+${detail.dId}+'\',\''+''+'\',\''+510+'\')'"  href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" th:onClick="'javascript:article_del('+this+',\''+${detail.dId}+'\')'" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 
 				</tr>
@@ -93,27 +92,13 @@ $('.table-sort').dataTable({
 });
 
 /*章节课程-添加*/
-// function article_add(cId){
-//     alert(cId);
-// 	var index = layer.open({
-// 		type: 2,
-// 		content: "detail-add.html?cId="+cId
-// 	});
-// 	layer.full(index);
-// }
+
     function article_add(title,url,cId,w,h){
 
         layer_show(title,url+"?cId="+cId,w,h);
     }
 /*章节课程-编辑*/
-// function article_edit(dId){
-//
-// 	var index = layer.open({
-// 		type: 2,
-// 		content: 'detail-edit.html?dId='+dId
-// 	});
-// 	layer.full(index);
-// }
+
     function article_edit(title,url,dId,w,h){
 
         layer_show(title,url+"?dId="+dId,w,h);
@@ -146,27 +131,8 @@ function article_del(obj,dId){
 	});
 }
 
-/*资讯-审核*/
-function article_shenhe(obj,id){
-	layer.confirm('审核文章？', {
-		btn: ['通过','不通过','取消'], 
-		shade: false,
-		closeBtn: 0
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布', {icon:6,time:1000});
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-		$(obj).remove();
-    	layer.msg('未通过', {icon:5,time:1000});
-	});	
-}
-/*资讯-下架*/
+
+/*详课-下架*/
 function article_stop(obj,dId){
 
     layer.confirm('确认要下架吗？',function(index){
@@ -193,7 +159,7 @@ function article_stop(obj,dId){
     });
 }
 
-/*资讯-发布*/
+/*详课-发布*/
 function article_start(obj,dId){
 
     layer.confirm('确认要发布吗？',function(index){
@@ -218,12 +184,7 @@ function article_start(obj,dId){
         });
     });
 }
-/*资讯-申请上线*/
-function article_shenqing(obj,id){
-	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-	$(obj).parents("tr").find(".td-manage").html("");
-	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-}
+
 
 </script> 
 </body>
