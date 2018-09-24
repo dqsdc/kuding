@@ -75,4 +75,7 @@
   <select id="selectAllByCid" resultMap="BaseResultMap">
     SELECT * FROM web_detail WHERE d_cid_id = #{id}
   </select>
+  <select id="selectAllByRemark" resultMap="BaseResultMap">
+    SELECT * FROM web_detail WHERE d_remark = #{s}
+  </select>
 </mapper>

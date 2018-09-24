@@ -27,9 +27,7 @@ public class CourseServiceImpl implements CourseService {
         String uu32 = UUID.UU32();
         course.setcId(uu32);
         Date now = DateKit.getNow();
-        System.out.println("当前时间："+now);
         long timeLong = now.getTime();
-        System.out.println("转换后的："+timeLong);
         course.setcCreateTime(timeLong);
         course.setcRemark("0");//设置状态为未发布
         courseMapper.insert(course);
@@ -37,11 +35,7 @@ public class CourseServiceImpl implements CourseService {
 //更新课程
 
     public void update(Course course) {
-        Date now = DateKit.getNow();
-        System.out.println("当前时间："+now);
-        long time = now.getTime();
-        System.out.println("转换后的："+time);
-        course.setcCreateTime(time);
+
         courseMapper.updateByPrimaryKeySelective(course);
     }
 /**

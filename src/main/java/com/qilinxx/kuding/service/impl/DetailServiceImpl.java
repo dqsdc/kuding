@@ -25,13 +25,10 @@ public class DetailServiceImpl implements DetailService {
      */
 
     public List<Detail> getAllByCid(String id) {
-//        DetailExample example=new DetailExample();
-//        DetailExample.Criteria criteria = example.createCriteria();
-//        criteria.andDCidIdEqualTo(id);
+
 
        return detailMapper.selectAllByCid(id);
-       // return null;
-       // return  detailMapper.selectByExample(example);
+
     }
 
     /**
@@ -43,9 +40,7 @@ public class DetailServiceImpl implements DetailService {
         String uu32 = UUID.UU32();//生成uuid
         detail.setdId(uu32);
         Date now = DateKit.getNow();
-        System.out.println("当前时间："+now);
         long time = now.getTime();
-        System.out.println("转换后的："+time);
         detail.setdCreateTime(time);
         detail.setdRemark("0");
         detailMapper.insertSelective(detail);
@@ -67,11 +62,7 @@ public class DetailServiceImpl implements DetailService {
      */
     @Override
     public void update(Detail detail) {
-        Date now = DateKit.getNow();
-        System.out.println("当前时间："+now);
-        long time = now.getTime();
-        System.out.println("转换后的："+time);
-        detail.setdCreateTime(time);
+
         detailMapper.updateByPrimaryKeySelective(detail);
     }
 
@@ -106,5 +97,11 @@ public class DetailServiceImpl implements DetailService {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("1");
         return detailMapper.updateByPrimaryKeySelective(detail);
+    }
+
+    @Override
+    public List<Detail> selectAllByRemark(String s) {
+        List<Detail> detailList = detailMapper.selectAllByRemark(s);
+        return detailList;
     }
 }

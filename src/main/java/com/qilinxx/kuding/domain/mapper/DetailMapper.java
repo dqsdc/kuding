@@ -11,4 +11,6 @@ import java.util.List;
 public interface DetailMapper extends Mapper<Detail>{
 
     List<Detail> selectAllByCid(String id);//根据cid进行查询所有章节课
+
+    List<Detail> selectAllByRemark(String s);//根据状态查询
 }
