@@ -114,11 +114,11 @@ public class CourseController {
     public String listDetail(String cId, Model model) {
         String cName = courseService.selecteById(cId).getcName();//根据id，查询到课程名
         //如果是预约课，查询dRemark为3的所有对象
-        if (cName.equals("php")){
+        if (cName.equals("预约课")){
             List<Detail> detailList = detailService.selectAllByRemark("3");
             System.out.println(detailList);
             model.addAttribute("detailList",detailList);
-            model.addAttribute("cId", cId);
+
         }
         else {
             List<Detail> detailListe = new ArrayList<>();
