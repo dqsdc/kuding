@@ -82,17 +82,7 @@
 				<input type="text" class="input-text"   th:value="${teacher.tAge}" name="tAge" id="email">
 			</div>
 		</div>
-		<!--<div class="row cl">-->
-			<!--<label class="form-label col-xs-4 col-sm-3">所在年级：</label>-->
-			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">-->
-				<!--<select class="select" size="1" name="sGrade">-->
-					<!--<option selected>请选择年级</option>-->
-					<!--<option value="一年级" id="option-1">一年级</option>-->
-					<!--<option value="二年级" id="option-2">二年级</option>-->
-					<!--<option value="三年级"  id="option-3">三年级</option>-->
-				<!--</select>-->
-				<!--</span> </div>-->
-		<!--</div>-->
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -133,14 +123,6 @@
 		}else {
             $("#sex-1").attr("checked","checked");
 		}
-        // if(sGrade=="一年级"){
-        //     $("#option-1").attr("selected","selected")
-        // }else if(sGrade=="二年级") {
-        //     $("#option-2").attr("selected","selected")
-        // }else{
-        //     $("#option-3").attr("selected","selected")
-		// }
-
         if(state){
             $("#state-1").attr("checked","checked");
         }else {
@@ -181,14 +163,20 @@
             focusCleanup:true,
             success:"valid",
             submitHandler:function(form){
+                $("form").ajaxSubmit(function(data){
+                    alert(data);
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('#btn-refresh').click();
+                    parent.layer.close(index);
 
-                $(form).ajaxSubmit();
-
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('#btn-refresh').click();
-                //$("#btn-refresh ").trigger('click');
-
-                parent.layer.close(index);
+                });
+                // $(form).ajaxSubmit();
+				//
+                // var index = parent.layer.getFrameIndex(window.name);
+                // parent.$('#btn-refresh').click();
+                // //$("#btn-refresh ").trigger('click');
+				//
+                // parent.layer.close(index);
                // window.location.replace(location.href);
             }
         });

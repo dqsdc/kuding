@@ -80,4 +80,7 @@
   <select id="selectByName" resultMap="BaseResultMap">
     SELECT * from web_teacher WHERE t_name=#{name}
   </select>
+  <select id="selectAllNumber" resultType="String">
+     SELECT t_account from web_teacher
+  </select>
 </mapper>

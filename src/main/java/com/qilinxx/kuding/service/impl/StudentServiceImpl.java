@@ -1,7 +1,9 @@
 package com.qilinxx.kuding.service.impl;
 
 import com.qilinxx.kuding.domain.mapper.StudentMapper;
+import com.qilinxx.kuding.domain.mapper.TeacherMapper;
 import com.qilinxx.kuding.domain.model.Student;
+import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.service.StudentService;
 import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.Md5Utils;
@@ -17,6 +19,8 @@ public class StudentServiceImpl  implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private TeacherMapper teacherMapper;
     //查询所有的学生列表
     @Override
     public List<Student> selectAllStudent() {
@@ -45,8 +49,12 @@ public class StudentServiceImpl  implements StudentService {
         //String newPassword= Md5Utils.encryptPassword(password,UUID.UU32());
         //student.setsPassword(newPassword);
         student.setsId(UUID.UU32());
-
-        student.setsCreateTime(new Date().getTime());
+        Date now = DateKit.getNow();
+        //获取时间
+        System.out.println("当前时间："+now);
+        long timeLong = DateKit.getUnixTimeLong(now);
+        System.out.println("转换后的："+timeLong);
+        student.setsCreateTime(timeLong);
         return studentMapper.insert(student);
     }
 
@@ -70,7 +78,6 @@ public class StudentServiceImpl  implements StudentService {
         Student student=studentMapper.selectByPrimaryKey(uid);
 
         student.setsState(true);
-        //System.out.println(student);
         return  studentMapper.updateByPrimaryKeySelective(student);
 
     }
@@ -79,7 +86,23 @@ public class StudentServiceImpl  implements StudentService {
     public Integer changePasswordBySId(String sId, String newpassword) {
         Student student=studentMapper.selectByPrimaryKey(sId);
         student.setsPassword(newpassword);
-
         return studentMapper.updateByPrimaryKeySelective(student);
+    }
+
+    @Override
+    public String checkNumber(String number) {
+       List<String> numberList1=studentMapper.selectAllNumber();
+        List<String> numberList2=teacherMapper.selectAllNumber();
+        for(String n:numberList1){
+            if(n.equals(number)){
+                return "0";
+            }
+        }
+        for(String n:numberList2){
+            if(n.equals(number)){
+                return "0";
+            }
+        }
+        return "1";
     }
 }

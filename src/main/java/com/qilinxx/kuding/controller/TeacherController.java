@@ -1,8 +1,10 @@
 package com.qilinxx.kuding.controller;
 
+import com.qilinxx.kuding.domain.model.Student;
 import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.service.TeacherService;
 import com.qilinxx.kuding.service.TeacherService;
+import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,20 +40,20 @@ public class TeacherController {
         @ResponseBody
         @RequestMapping("/tchangePassword")
         public String tchangePassword(String sId,String newpassword){
-            int i=teacherService.changePasswordByTId(sId,newpassword);
-            System.out.println(sId+newpassword);
-            return   "redirect:/teacher-list.html";
-        }
+        int i=teacherService.changePasswordByTId(sId,newpassword);
+        System.out.println(sId+newpassword);
+        return   "修改成功";
+    }
         /**
          *@Author: pengxiaoyu
          * @Description: 查询所有老师信息发送到老师列表页面
          * @Param: [model]
          * @return: java.lang.String
-         * @Date: 2018/9/17 
+         * @Date: 2018/9/17
          */
         @RequestMapping("/teacher-list.html")
         public String showMemberList(Model model) {
-
+            model.addAttribute("commons",new Commons());
             List<Teacher> teacherList=teacherService.selectAllTeacher();
             System.out.println(teacherList);
             model.addAttribute("teacherList",teacherList);
@@ -60,9 +62,9 @@ public class TeacherController {
         /**
          *@Author: pengxiaoyu
          * @Description: 根据老师ID查询个人信息
-         * @Param: [id, model] 
+         * @Param: [id, model]
          * @return: java.lang.String
-         * @Date: 2018/9/17 
+         * @Date: 2018/9/17
          */
         @RequestMapping("teacher-show.html")
         public String member_show(String uid,Model model){
@@ -95,10 +97,15 @@ public class TeacherController {
         @ResponseBody
         @RequestMapping("/addTeacher")
         public String addTeacher(Teacher teacher){
-            Integer i=teacherService.addTeacher(teacher);
+
+           try {
+               Integer i=teacherService.addTeacher(teacher);
+           }catch (Exception e){
+               return "添加失败";
+           }
             System.out.println(teacher.gettSex());
             System.out.println(teacher);
-            return "redirect:/teacher-list.html";
+            return "添加成功";
         }
         /**
          *@Author: pengxiaoyu
@@ -114,10 +121,10 @@ public class TeacherController {
             Integer i=teacherService.deleteTeacherById(uid);
             if(i>0){
                 System.out.println(i);
-                return "success";
+                return "删除成功";
             }else {
                 System.out.println(i);
-                return "fail";
+                return "删除失败";
             }
 
         }
@@ -177,8 +184,29 @@ public class TeacherController {
         public String editTeacher(Teacher teacher){
             System.out.println(teacher);
             teacherService.editTeacher(teacher);
-            return "success";
-        }
-    }
+            return "修改成功";
+        } /**
+     *@Author: pengxiaoyu
+     * @Description:跳转到修改密码的页面
+     * @Param: []
+     * @return: java.lang.String
+     * @Date: 2018/9/17
+     */
+//    @RequestMapping("teacher-change-password.html")
+//    public String change_password(String uid,Model model){
+//        Teacher teacher = teacherService.selectTeacherById(uid);
+//        model.addAttribute("teacher",teacher);
+//        return "teacher-change-password";
+//    }
+//    @ResponseBody
+//    @RequestMapping("/tchangePassword")
+//    public String changePassword(String sId,String newpassword){
+//        int i=teacherService.changePasswordBySId(sId,newpassword);
+//        System.out.println(sId+newpassword);
+//        return   "success";
+//    }
+
+
+ }
 
 

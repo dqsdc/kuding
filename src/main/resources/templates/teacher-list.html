@@ -62,7 +62,7 @@
 				<td th:text="${teahcer.tAccount}">13000000000</td>
 				<td th:text="${teahcer.tRemark}">admin@mail.com</td>
 				<td th:text="${teahcer.tAge}" class="text-l">一年级</td>
-				<td th:text="${#dates.format(teahcer.tCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</td>
+				<td th:text="${commons.fmtdate(teahcer.tCreateTime)}">2014-6-11 11:11:42</td>
 				<td class="td-status" th:if="${teahcer.tState}"><span class="label label-success radius">已启用</span></td>
 				<td class="td-status" th:unless="${teahcer.tState}"><span class="label label-defaunt radius">已停用</span></td>
 				<td class="td-manage">
@@ -71,7 +71,7 @@
 					   href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
 					<a  th:unless="${teahcer.tState}" style="text-decoration:none" th:onclick="'javascript:member_start('+this+',\''+${teahcer.tId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
 					<a title="编辑" href="javascript:;"  th:onclick="'javascript:member_edit(\''+编辑+'\',\''+teacher-edit.html+'\',\''+${teahcer.tId}+'\',\''+''+'\',\''+510+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a style="text-decoration:none" class="ml-5" href="javascript:;"  th:onclick="'javascript:change_password(\''+修改密码+'\',\''+tacher-change-password.html+'\',\''+${teahcer.tId}+'\',\''+600+'\',\''+270+'\')'"
+					<a style="text-decoration:none" class="ml-5" href="javascript:;"  th:onclick="'javascript:change_password(\''+修改密码+'\',\''+teacher-change-password.html+'\',\''+${teahcer.tId}+'\',\''+600+'\',\''+270+'\')'"
 					    title="修改密码">
 						<i class="Hui-iconfont">&#xe63f;</i></a>
 					<a title="删除" href="javascript:;"
@@ -199,10 +199,7 @@ function member_del(uid){
 <script>
 
     function refresh() {
-        //  alert("刷新");//location.replace(location.href);
-        //   window.location.replace(location.href);
-        // $("#a-refresh i").trigger('click');
-        document.getElementById("a").click();
+        window.location.replace(location.href);
 
     }
 </script>

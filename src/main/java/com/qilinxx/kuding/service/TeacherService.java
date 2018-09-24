@@ -20,4 +20,6 @@ public interface TeacherService {
     Integer startTeacher(String uid);
 
     void editTeacher(Teacher teacher);
+
+    Integer changePasswordBySId(String sId, String newpassword);
 }

@@ -2,6 +2,7 @@ package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.domain.model.Student;
 import com.qilinxx.kuding.service.StudentService;
+import com.qilinxx.kuding.util.Commons;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class StudentController {
     public String changePassword(String sId,String newpassword){
         int i=studentService.changePasswordBySId(sId,newpassword);
         System.out.println(sId+newpassword);
-        return   "redirect:/student-list.html";
+        return   "success";
     }
     /** 
     *@Author: pengxiaoyu 
@@ -51,10 +52,10 @@ public class StudentController {
     * @return: java.lang.String 
     * @Date: 2018/9/17 
     */ 
-    @RequestMapping("/student-list.html")
+    @RequestMapping("student-list.html")
     public String showMemberList(Model model) {
         List<Student> studentList=studentService.selectAllStudent();
-
+        model.addAttribute("commons",new Commons());
         model.addAttribute("studentList",studentList);
 
         return "student-list";
@@ -100,7 +101,7 @@ public class StudentController {
         Integer i=studentService.addStudent(student);
         System.out.println(student.getsSex());
         System.out.println(student);
-        return "redirect:/student-list.html";
+        return "添加成功";
     }
     /**
     *@Author: pengxiaoyu
@@ -116,10 +117,10 @@ public class StudentController {
         Integer i=studentService.deleteStudentById(uid);
         if(i>0){
             System.out.println(i);
-            return "success";
+            return "删除成功";
         }else {
             System.out.println(i);
-            return "fail";
+            return "删除失败";
         }
 
     }
@@ -179,6 +180,14 @@ public class StudentController {
     public String editStudent(Student student){
         System.out.println(student);
         studentService.editStudent(student);
-        return "success";
+        return "修改成功";
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkNumber")
+    public String checkNumber(String number){
+        //System.out.println(number);
+        return  studentService.checkNumber(number);
+
     }
 }

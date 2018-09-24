@@ -1,9 +1,11 @@
 package com.qilinxx.kuding.service.impl;
 
 import com.qilinxx.kuding.domain.mapper.TeacherMapper;
+import com.qilinxx.kuding.domain.model.Student;
 import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.domain.model.TeacherExample;
 import com.qilinxx.kuding.service.TeacherService;
+import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +40,12 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Integer addTeacher(Teacher teacher) {
         teacher.settId(UUID.UU32());
-
-        teacher.settCreateTime(new Date().getTime());
+        //获取时间
+        Date now = DateKit.getNow();
+        System.out.println("当前时间："+now);
+        long timeLong = DateKit.getUnixTimeLong(now);
+        System.out.println("转换后的："+timeLong);
+        teacher.settCreateTime(timeLong);
 
         return   teacherMapper.insert(teacher);
     }
@@ -67,5 +73,12 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void editTeacher(Teacher teacher) {
         teacherMapper.updateByPrimaryKeySelective(teacher);
+    }
+
+    @Override
+    public Integer changePasswordBySId(String sId, String newPassword) {
+        Teacher teacher=teacherMapper.selectByPrimaryKey(sId);
+        teacher.settPassword(newPassword);
+        return teacherMapper.updateByPrimaryKeySelective(teacher);
     }
 }
