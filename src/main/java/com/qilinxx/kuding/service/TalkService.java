@@ -1,7 +1,5 @@
 package com.qilinxx.kuding.service;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * @Auther: ljm
  * @Date: 2018-09-07 17:14
@@ -9,6 +7,14 @@ import java.io.UnsupportedEncodingException;
  */
 public interface TalkService {
 
-    String createMeeting(int people, int time) throws UnsupportedEncodingException;
+    /**
+     * 在未来的一个时间点创建上课会话,若start为null，则立即开始
+     *
+     * @param people   会话人数
+     * @param timeLong 会话时长
+     * @param start    会话开始时间戳
+     * @return 返回的json
+     */
+    String createMeetingOn(Integer people, Integer timeLong, Integer start);
 
 }

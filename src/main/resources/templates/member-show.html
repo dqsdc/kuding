@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -26,10 +26,9 @@
 	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span class="f-18">张三</span>
-			<span class="pl-10 f-12">余额：40</span>
+			<span class="f-18" th:text="${teacher.tName}">张三</span>
 		</dt>
-		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+		<dd class="pt-10 f-12" style="margin-left:0" th:text="${teacher.tDetail}">这家伙很懒，什么也没有留下</dd>
 	</dl>
 </div>
 <div class="pd-20">
@@ -37,27 +36,23 @@
 		<tbody>
 			<tr>
 				<th class="text-r" width="80">性别：</th>
-				<td>男</td>
+				<td th:text="${teacher.tSex}==0?'女':'男'">男</td>
 			</tr>
 			<tr>
 				<th class="text-r">手机：</th>
-				<td>13000000000</td>
+				<td th:text="${teacher.tAccount}">13000000000</td>
 			</tr>
 			<tr>
-				<th class="text-r">邮箱：</th>
-				<td>admin@mail.com</td>
-			</tr>
-			<tr>
-				<th class="text-r">地址：</th>
-				<td>北京市 海淀区</td>
+				<th class="text-r">学历：</th>
+				<td th:text="${teacher.tDegree}">admin@mail.com</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td>2014.12.20</td>
+				<td th:text="${commons.fmtdate(teacher.tCreateTime)}">admin@mail.com</td>
 			</tr>
 			<tr>
-				<th class="text-r">积分：</th>
-				<td>330</td>
+				<th class="text-r">简介：</th>
+				<td th:text="${teacher.tDetail}">北京市 海淀区</td>
 			</tr>
 		</tbody>
 	</table>

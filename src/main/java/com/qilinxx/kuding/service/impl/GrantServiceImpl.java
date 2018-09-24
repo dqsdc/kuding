@@ -4,9 +4,11 @@ import com.qilinxx.kuding.domain.mapper.*;
 import com.qilinxx.kuding.domain.model.*;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 import com.qilinxx.kuding.service.GrantService;
+import com.qilinxx.kuding.service.TalkService;
 import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,16 @@ import java.util.List;
 
 @Service
 public class GrantServiceImpl implements GrantService {
+
+    @Value("${meeting_capacity}")
+    private int meeting_capacity;
+
+    @Value("${time_long}")
+    private int time_long;
+
+    @Autowired
+    TalkService talkService;
+
     @Autowired
     private GrantMapper grantMapper;
 
@@ -29,6 +41,11 @@ public class GrantServiceImpl implements GrantService {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Override
+    public Teacher selectShowTeacher(String id) {
+        return teacherMapper.selectByPrimaryKey(id);
+    }
 
     @Override
     public List<GrantVo> selectAllGrant() {
@@ -48,14 +65,33 @@ public class GrantServiceImpl implements GrantService {
 
     @Override
     public String updateGrantTimeById(String gid, String time) {
-        if (time==null||"".equals(time)) return "时间未选择";
+        if (time == null || "".equals(time)) return "时间未选择";
         Grant grant = grantMapper.selectByPrimaryKey(gid);
         Date date = DateKit.dateFormat(time);
         Long unixDate = DateKit.getUnixTimeLong(date);
+        int unix=DateKit.getUnixTimeByDate(date);
+        String json=talkService.createMeetingOn(meeting_capacity,time_long,unix);
+        grant.setgUrl(json);
         grant.setgTime(unixDate);
+        if ("2".equals(grant.getgRecord())) grant.setgRecord("0");//重新安排已取消的课程
         grantMapper.updateByPrimaryKey(grant);
         System.out.println("添加成功");
         return "添加成功";
+    }
+
+    @Override
+    public String updateStatusById(String gid) {
+        Grant grant = grantMapper.selectByPrimaryKey(gid);
+        String record=grant.getgRecord();
+        System.out.println(record);
+        //针对record的状态进行判断
+        switch (record){
+            case "0":grant.setgRecord("2");break;
+            case "1":return "已完成课程不可取消";
+            case "2":return "已取消课程，不能再次取消";
+        }
+        grantMapper.updateByPrimaryKey(grant);
+        return "状态修改成功";
     }
 
 
