@@ -4,6 +4,7 @@ import com.qilinxx.kuding.domain.model.Course;
 import com.qilinxx.kuding.domain.model.Detail;
 import com.qilinxx.kuding.service.CourseService;
 import com.qilinxx.kuding.service.DetailService;
+import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class CourseController {
     public String courseList(Model model) {
         List<Course> courseList = courseService.getAll();
         model.addAttribute("courseList", courseList);
+        model.addAttribute("commons",new Commons());
         return "article-list";
     }
 
@@ -116,8 +118,8 @@ public class CourseController {
         //如果是预约课，查询dRemark为3的所有对象
         if (cName.equals("预约课")){
             List<Detail> detailList = detailService.selectAllByRemark("3");
-            System.out.println(detailList);
             model.addAttribute("detailList",detailList);
+
 
         }
         else {
@@ -126,7 +128,7 @@ public class CourseController {
             model.addAttribute("detailList", detailListe);
             model.addAttribute("cId", cId);
         }
-
+        model.addAttribute("commons",new Commons());
         return "detail-list";
     }
 

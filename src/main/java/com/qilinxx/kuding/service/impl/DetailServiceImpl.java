@@ -40,8 +40,8 @@ public class DetailServiceImpl implements DetailService {
         String uu32 = UUID.UU32();//生成uuid
         detail.setdId(uu32);
         Date now = DateKit.getNow();
-        long time = now.getTime();
-        detail.setdCreateTime(time);
+        long timeLong = DateKit.getUnixTimeLong(now);
+        detail.setdCreateTime(timeLong);
         detail.setdRemark("0");
         detailMapper.insertSelective(detail);
     }

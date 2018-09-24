@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService {
         String uu32 = UUID.UU32();
         course.setcId(uu32);
         Date now = DateKit.getNow();
-        long timeLong = now.getTime();
+        long timeLong = DateKit.getUnixTimeLong(now);
         course.setcCreateTime(timeLong);
         course.setcRemark("0");//设置状态为未发布
         courseMapper.insert(course);
