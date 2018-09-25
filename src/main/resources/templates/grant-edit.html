@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -40,7 +40,7 @@
                 <tr>
                     <th></th>
                     <td>
-                        <button class="btn btn-success radius" type="submit" id="btn"><i class="icon-ok"></i> 确定</button>
+                        <button class="btn btn-success radius" type="button" id="btn"><i class="icon-ok"></i> 确定</button>
                     </td>
                 </tr>
                 </tbody>
@@ -65,7 +65,6 @@
 
     $("#btn").click(function () {
         var data = $("#timeForm").serialize();
-        console.log(data);
         submit(data);
     });
 

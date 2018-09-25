@@ -69,29 +69,21 @@ public class GrantServiceImpl implements GrantService {
         Grant grant = grantMapper.selectByPrimaryKey(gid);
         Date date = DateKit.dateFormat(time);
         Long unixDate = DateKit.getUnixTimeLong(date);
-        int unix=DateKit.getUnixTimeByDate(date);
-        String json=talkService.createMeetingOn(meeting_capacity,time_long,unix);
+        int unix = DateKit.getUnixTimeByDate(date);
+        String json = talkService.createMeetingOn(meeting_capacity, time_long, unix);
         grant.setgUrl(json);
         grant.setgTime(unixDate);
         if ("2".equals(grant.getgRecord())) grant.setgRecord("0");//重新安排已取消的课程
         grantMapper.updateByPrimaryKey(grant);
-        System.out.println("添加成功");
         return "添加成功";
     }
 
     @Override
     public String updateStatusById(String gid) {
         Grant grant = grantMapper.selectByPrimaryKey(gid);
-        String record=grant.getgRecord();
-        System.out.println(record);
-        //针对record的状态进行判断
-        switch (record){
-            case "0":grant.setgRecord("2");break;
-            case "1":return "已完成课程不可取消";
-            case "2":return "已取消课程，不能再次取消";
-        }
+        grant.setgRecord("2");
         grantMapper.updateByPrimaryKey(grant);
-        return "状态修改成功";
+        return "ok";
     }
 
 
@@ -106,12 +98,15 @@ public class GrantServiceImpl implements GrantService {
         List<Detail> details = detailMapper.selectAllByCid(cId);
         if (details.size() == 0) return "选择课程已失效";
         for (Detail d : details) {
-            Grant grant = new Grant();
-            grant.setgTidId(teacher.gettId());
-            grant.setgDidId(d.getdId());
-            grant.setgSidId(student.getsId());
-            grant.setgId(UUID.UU32());
-            grantMapper.insertSelective(grant);
+            //选择课程状态已 1 在用的
+            if ("1".equals(d.getdRemark())){
+                Grant grant = new Grant();
+                grant.setgTidId(teacher.gettId());
+                grant.setgDidId(d.getdId());
+                grant.setgSidId(student.getsId());
+                grant.setgId(UUID.UU32());
+                grantMapper.insertSelective(grant);
+            }
         }
         return "成功添加";
     }
