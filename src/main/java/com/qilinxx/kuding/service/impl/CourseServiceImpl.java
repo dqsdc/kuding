@@ -35,12 +35,13 @@ public class CourseServiceImpl implements CourseService {
 //更新课程
 
     public void update(Course course) {
-
+        course.setcRemark("0");
         courseMapper.updateByPrimaryKeySelective(course);
     }
-/**
- * 删除课程
- */
+
+    /**
+     * 删除课程
+     */
 
 
     public void delete(String id) {
@@ -48,7 +49,8 @@ public class CourseServiceImpl implements CourseService {
         courseMapper.deleteByPrimaryKey(id);
     }
 
-    /**根据cid查询科目
+    /**
+     * 根据cid查询科目
      *
      * @param cId
      * @return
@@ -61,6 +63,7 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 根据cId停用课程
+     *
      * @param cId
      * @return
      */
@@ -68,11 +71,12 @@ public class CourseServiceImpl implements CourseService {
     public Integer stopCourse(String cId) {
         Course course = courseMapper.selectByPrimaryKey(cId);
         course.setcRemark("0");
-        return  courseMapper.updateByPrimaryKeySelective(course);
+        return courseMapper.updateByPrimaryKeySelective(course);
     }
 
     /**
      * 根据cId开启课程
+     *
      * @param cId
      * @return
      */

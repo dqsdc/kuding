@@ -25,7 +25,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 课程管理 <span class="c-gray en">&gt;</span> 课程列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont" id="btn-refresh">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加课程" data-href="article-add.html" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加课程</a></span> <span class="r">共有数据：<strong th:text="${courseList.size()}"></strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" th:onclick="'javascript:datadel()'" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加课程" data-href="article-add.html" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加课程</a></span> <span class="r">共有数据：<strong th:text="${courseList.size()}"></strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -43,7 +43,7 @@
 
 
 			    <tr th:each="course, interStat : ${courseList}" class="text-c">
-					<td><input type="checkbox" value="" name=""></td>
+					<td><input type="checkbox" value="" name="cb" ></td>
 					<td th:text="${interStat.count}"></td>
 					<td class="text-l" ><u style="cursor:pointer" class="text-primary" th:onclick="'javascript:article_edit2(\''+${course.cId}+'\')'" title="查看" th:text="${course.cName}"></u></td>
 					<td th:text="${course.cCount}"></td>
@@ -194,7 +194,32 @@ function article_start(obj,cId){
         });
     });
 }
+    /*批量删除*/
+   function datadel() {
+	   alert("批量删除");
+       var cb=document.getElementsByName("cb");
+       var a=0;
+       var arr=new Array();
+       //循环判断有没有选择,如果有就a++
+       for(var i=0;i<cb.length;i++){
+           if(cb[i].checked){
+               //因为删除会改变数组下标,所以把对象拿出来放到一个数组中
+               arr[a]=cb[i].parentNode.parentNode;
+               a++;
+           }
+       }
+       //判断如果标识符等于0就没有选中的
+       if(a==0){
+           alert("请至少选择一行");
+       }else{
+           //循环自己定义的数组,删除选中的TR
+           for(var c=0;c<arr.length;c++){
+               //alert(arr[c]);
 
+               arr[c].remove();
+           }
+       }
+   }
 
 </script> 
 </body>

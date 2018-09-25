@@ -114,20 +114,10 @@ public class CourseController {
      */
     @RequestMapping("detail-list.html")
     public String listDetail(String cId, Model model) {
-        String cName = courseService.selecteById(cId).getcName();//根据id，查询到课程名
-        //如果是预约课，查询dRemark为3的所有对象
-        if (cName.equals("预约课")){
-            List<Detail> detailList = detailService.selectAllByRemark("3");
-            model.addAttribute("detailList",detailList);
-
-
-        }
-        else {
             List<Detail> detailListe = new ArrayList<>();
             detailListe = detailService.getAllByCid(cId);
             model.addAttribute("detailList", detailListe);
             model.addAttribute("cId", cId);
-        }
         model.addAttribute("commons",new Commons());
         return "detail-list";
     }
@@ -215,7 +205,7 @@ public class CourseController {
      * 禁用课程
      *
      * @param cId
-     * @return
+     * @return 成功
      */
     @RequestMapping("stopCourse")
     @ResponseBody
@@ -228,7 +218,7 @@ public class CourseController {
      * 开启课程
      *
      * @param cId
-     * @return
+     * @return 成功
      */
     @RequestMapping("startCourse")
     @ResponseBody
@@ -241,7 +231,7 @@ public class CourseController {
      * 禁用详细课程
      *
      * @param dId
-     * @return
+     * @return 成功
      */
     @RequestMapping("stopDetail")
     @ResponseBody
@@ -252,9 +242,8 @@ public class CourseController {
 
     /**
      * 开启课程
-     *
-     * @param cId
-     * @return
+     * @param dId
+     * @return 成功
      */
     @RequestMapping("startDetail")
     @ResponseBody
@@ -262,4 +251,5 @@ public class CourseController {
         Integer i = detailService.startDetail(dId);
         return "sucess";
     }
+
 }
