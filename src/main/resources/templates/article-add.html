@@ -39,7 +39,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程名：</label>
 			<div class="formControls col-xs-5 col-sm-5">
 				<input type="text" class="input-text" value="" placeholder="" id="cNmeId" name="cName"
-					   datatype="*2-5" nullmsg="课程名不能为空">
+					   datatype="*2-16" nullmsg="课程名不能为空">
 			</div>
 			<div class="Validform_checktip formControls col-xs-5 col-sm-5"></div>
 
@@ -59,8 +59,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">文章摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="cDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*5-50" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+				<textarea name="cDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入5个字符" datatype="*5-50" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
 			</div>
 		</div>
 

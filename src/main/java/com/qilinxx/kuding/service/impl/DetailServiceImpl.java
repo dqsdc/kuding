@@ -20,19 +20,21 @@ public class DetailServiceImpl implements DetailService {
 
     /**
      * 根据cid查询所有章节课
-     * @param id  课程id
+     *
+     * @param id 课程id
      * @return
      */
 
     public List<Detail> getAllByCid(String id) {
 
 
-       return detailMapper.selectAllByCid(id);
+        return detailMapper.selectAllByCid(id);
 
     }
 
     /**
      * 添加章节
+     *
      * @param detail
      */
 
@@ -48,6 +50,7 @@ public class DetailServiceImpl implements DetailService {
 
     /**
      * 根据id查找
+     *
      * @param dId
      * @return
      */
@@ -58,16 +61,18 @@ public class DetailServiceImpl implements DetailService {
 
     /**
      * 更新详课
+     *
      * @param detail
      */
     @Override
     public void update(Detail detail) {
-
+        detail.setdRemark("0");
         detailMapper.updateByPrimaryKeySelective(detail);
     }
 
     /**
      * 根据id删除章节
+     *
      * @param did
      */
     @Override
@@ -77,6 +82,7 @@ public class DetailServiceImpl implements DetailService {
 
     /**
      * 停用详细课程
+     *
      * @param dId
      * @return
      */
@@ -89,6 +95,7 @@ public class DetailServiceImpl implements DetailService {
 
     /**
      * 启用详细课程
+     *
      * @param dId
      * @return
      */
