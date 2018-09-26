@@ -20,7 +20,7 @@ import java.util.Map;
 public class UrlConnectedUtils {
 
     public static String SendGET(String url, String param) {
-        String result = "";//访问返回结果
+        StringBuilder result = new StringBuilder();//访问返回结果
         BufferedReader read = null;//读取访问结果
 
         try {
@@ -34,7 +34,7 @@ public class UrlConnectedUtils {
             //建立连接
             connection.connect();
             // 获取所有响应头字段
-            Map<String, List<String>> map = connection.getHeaderFields();
+//            Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段，获取到cookies等
 //            for (String key : map.keySet()) {
 //                System.out.println(key + "--->" + map.get(key));
@@ -44,7 +44,7 @@ public class UrlConnectedUtils {
                     connection.getInputStream(), "UTF-8"));
             String line;//循环读取
             while ((line = read.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class UrlConnectedUtils {
             }
         }
 
-        return result;
+        return result.toString();
     }
 
     /**
@@ -71,17 +71,17 @@ public class UrlConnectedUtils {
     public static String createLinkStringByGet(Map<String, String> params) throws UnsupportedEncodingException {
         List<String> keys = new ArrayList<>(params.keySet());
         Collections.sort(keys);
-        String prestr = "";
+        StringBuilder prestr = new StringBuilder();
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
             String value = params.get(key);
             value = URLEncoder.encode(value, "UTF-8");
             if (i == keys.size() - 1) {//拼接时，不包括最后一个&字符
-                prestr = prestr + key + "=" + value;
+                prestr.append(key).append("=").append(value);
             } else {
-                prestr = prestr + key + "=" + value + "&";
+                prestr.append(key).append("=").append(value).append("&");
             }
         }
-        return prestr;
+        return prestr.toString();
     }
 }

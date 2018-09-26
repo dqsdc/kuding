@@ -8,10 +8,10 @@ import com.qilinxx.kuding.domain.model.*;
  * @Description:重构了部分Grant字段，便于授课展示
  */
 public class GrantVo extends Grant{
-    Student student;
-    Teacher teacher;
-    Course course;
-    Detail detail;
+    private Student student;
+    private Teacher teacher;
+    private Course course;
+    private Detail detail;
 
     public Student getStudent() {
         return student;

@@ -87,7 +87,6 @@ public class GrantController {
     @RequestMapping("/addGrant")
     @ResponseBody
     public String addGrant(String sName, String sPhone, String tName, String cName) {
-        String msg = grantService.addGrant(sName, sPhone, tName, cName);
-        return msg;
+        return grantService.addGrant(sName, sPhone, tName, cName);
     }
 }
