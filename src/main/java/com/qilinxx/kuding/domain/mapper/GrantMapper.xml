@@ -72,4 +72,7 @@
   <sql id="Base_Column_List">
     g_id, g_record, g_time, g_url, g_remark, g_did_id, g_sid_id, g_tid_id
   </sql>
+  <select id="isExist" resultType="Integer">
+    SELECT * FROM web_grant WHERE g_did_id=#{did} AND g_sid_id=#{sid}
+  </select>
 </mapper>

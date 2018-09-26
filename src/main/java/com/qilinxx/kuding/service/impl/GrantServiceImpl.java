@@ -92,14 +92,20 @@ public class GrantServiceImpl implements GrantService {
         Student student = studentMapper.selectByPhone(sPhone);
         Teacher teacher = teacherMapper.selectByName(tName);
         if (null == student) return "手机号未注册";
+
         if (!sName.equals(student.getsName())) return "学生名不正确";
+
         if (teacher == null) return "老师姓名不正确";
+
         String cId = courseMapper.selectIdByName(cName);
         List<Detail> details = detailMapper.selectAllByCid(cId);
         if (details.size() == 0) return "选择课程已失效";
+
+        Integer num = grantMapper.isExist(student.getsId(), details.get(0).getdId());
+        if (num != null) return "此课程已购买";
         for (Detail d : details) {
             //选择课程状态已 1 在用的
-            if ("1".equals(d.getdRemark())){
+            if ("1".equals(d.getdRemark())) {
                 Grant grant = new Grant();
                 grant.setgTidId(teacher.gettId());
                 grant.setgDidId(d.getdId());
