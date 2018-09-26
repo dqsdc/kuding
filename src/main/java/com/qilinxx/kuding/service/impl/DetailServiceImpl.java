@@ -2,7 +2,6 @@ package com.qilinxx.kuding.service.impl;
 
 import com.qilinxx.kuding.domain.mapper.DetailMapper;
 import com.qilinxx.kuding.domain.model.Detail;
-import com.qilinxx.kuding.domain.model.DetailExample;
 import com.qilinxx.kuding.service.DetailService;
 import com.qilinxx.kuding.util.DateKit;
 import com.qilinxx.kuding.util.UUID;
@@ -22,12 +21,10 @@ public class DetailServiceImpl implements DetailService {
      * 根据cid查询所有章节课
      *
      * @param id 课程id
-     * @return
+     * @return 符合课程id的详细课程list
      */
 
     public List<Detail> getAllByCid(String id) {
-
-
         return detailMapper.selectAllByCid(id);
 
     }
@@ -35,7 +32,7 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 添加章节
      *
-     * @param detail
+     * @param detail 添加对象
      */
 
     public void insert(Detail detail) {
@@ -51,8 +48,8 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 根据id查找
      *
-     * @param dId
-     * @return
+     * @param dId 详细课程id
+     * @return 更新后结果
      */
     @Override
     public Detail selectById(String dId) {
@@ -62,7 +59,7 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 更新详课
      *
-     * @param detail
+     * @param detail 更新对象
      */
     @Override
     public void update(Detail detail) {
@@ -73,7 +70,7 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 根据id删除章节
      *
-     * @param did
+     * @param did 详细课程id
      */
     @Override
     public void deleteById(String did) {
@@ -83,8 +80,8 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 停用详细课程
      *
-     * @param dId
-     * @return
+     * @param dId 详细课程id
+     * @return 更新后返回
      */
     @Override
     public Integer stopDetail(String dId) {
@@ -96,8 +93,8 @@ public class DetailServiceImpl implements DetailService {
     /**
      * 启用详细课程
      *
-     * @param dId
-     * @return
+     * @param dId 详细课程id
+     * @return 更新后返回
      */
     @Override
     public Integer startDetail(String dId) {
@@ -106,6 +103,12 @@ public class DetailServiceImpl implements DetailService {
         return detailMapper.updateByPrimaryKeySelective(detail);
     }
 
+    /**
+     * 根据状态查询
+     *
+     * @param s 状态
+     * @return 返回符合改状态的detailList
+     */
     @Override
     public List<Detail> selectAllByRemark(String s) {
         List<Detail> detailList = detailMapper.selectAllByRemark(s);

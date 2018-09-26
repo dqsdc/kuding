@@ -51,9 +51,8 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 根据cid查询科目
-     *
-     * @param cId
-     * @return
+     * @param cId 课程id
+     * @return 返回课程对象
      */
     @Override
     public Course selecteById(String cId) {
@@ -63,9 +62,8 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 根据cId停用课程
-     *
-     * @param cId
-     * @return
+     * @param cId  课程id
+     * @return  mapper返回Integer
      */
     @Override
     public Integer stopCourse(String cId) {
@@ -76,9 +74,8 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 根据cId开启课程
-     *
-     * @param cId
-     * @return
+     * @param cId  课程id
+     * @return mapper返回Integer
      */
     @Override
     public Integer startCourse(String cId) {

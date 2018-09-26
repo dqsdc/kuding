@@ -20,5 +20,5 @@ public interface DetailService {
 
     Integer startDetail(String dId);//通过id开启课程
 
-    List<Detail> selectAllByRemark(String s);
+    List<Detail> selectAllByRemark(String s);//根据状态查询详细课程
 }
