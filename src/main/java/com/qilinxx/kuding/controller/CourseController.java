@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,7 +90,7 @@ public class CourseController {
         course.setcCount(Integer.parseInt(cCount));
         course.setcId(cId);
         courseService.update(course);
-        return "sucess";
+        return "success";
     }
 
     /**
@@ -103,7 +102,7 @@ public class CourseController {
         //得到隐藏域id，根据id删除对象
         courseService.delete(cId);
         //重新返回到刚才的界面，并且课程已减少
-        return "sucess";
+        return "success";
     }
 
     /**
@@ -114,9 +113,8 @@ public class CourseController {
      */
     @RequestMapping("detail-list.html")
     public String listDetail(String cId, Model model) {
-            List<Detail> detailListe = new ArrayList<>();
-            detailListe = detailService.getAllByCid(cId);
-            model.addAttribute("detailList", detailListe);
+            List<Detail> detailList  = detailService.getAllByCid(cId);
+            model.addAttribute("detailList", detailList);
             model.addAttribute("cId", cId);
         model.addAttribute("commons",new Commons());
         return "detail-list";
@@ -152,7 +150,7 @@ public class CourseController {
         detail.setdCidId(cId);
         detailService.insert(detail);
         attr.addAttribute("cId", cId);
-        return "sucess";
+        return "success";
     }
 
     /**
@@ -198,58 +196,57 @@ public class CourseController {
         //得到隐藏域id，根据id删除对象
         detailService.deleteById(dId);
         //重新返回到刚才的界面，并且课程已减少
-        return "sucess";
+        return "success";
     }
 
     /**
      * 禁用课程
-     *
-     * @param cId
+     * @param cId 课程id
      * @return 成功
      */
     @RequestMapping("stopCourse")
     @ResponseBody
     public String stopCourse(String cId) {
         Integer i = courseService.stopCourse(cId);
-        return "sucess";
+        return "success";
     }
 
     /**
      * 开启课程
      *
-     * @param cId
+     * @param cId  课程id
      * @return 成功
      */
     @RequestMapping("startCourse")
     @ResponseBody
     public String startCourse(String cId) {
         Integer i = courseService.startCourse(cId);
-        return "sucess";
+        return "success";
     }
 
     /**
      * 禁用详细课程
      *
-     * @param dId
+     * @param dId  详细课程id
      * @return 成功
      */
     @RequestMapping("stopDetail")
     @ResponseBody
     public String stopDetail(String dId) {
         Integer i = detailService.stopDetail(dId);
-        return "sucess";
+        return "success";
     }
 
     /**
      * 开启课程
-     * @param dId
+     * @param dId 详细课程id
      * @return 成功
      */
     @RequestMapping("startDetail")
     @ResponseBody
     public String startDetail(String dId) {
         Integer i = detailService.startDetail(dId);
-        return "sucess";
+        return "success";
     }
 
 }

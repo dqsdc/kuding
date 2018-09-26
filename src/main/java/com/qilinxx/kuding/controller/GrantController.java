@@ -34,7 +34,7 @@ public class GrantController {
 
     //显示购买课程页面
     @RequestMapping("member-show.html")
-    public String showMember(HttpServletRequest request,String tid) {
+    public String showMember(HttpServletRequest request, String tid) {
         System.out.println(tid);
         Teacher teacher = grantService.selectShowTeacher(tid);
         request.setAttribute("teacher", teacher);
@@ -56,8 +56,8 @@ public class GrantController {
         System.out.println(grants.size());
         System.out.println(grants.get(0).toString());
         request.setAttribute("grants", grants);
-        request.setAttribute("size",grants.size());
-        request.setAttribute("commons",new Commons());
+        request.setAttribute("size", grants.size());
+        request.setAttribute("commons", new Commons());
         return "grant-list";
     }
 
@@ -77,26 +77,17 @@ public class GrantController {
     public String cancel(String gid) {
         return grantService.updateStatusById(gid);
     }
+
     /**
      * 添加授课记录
-     *
-     * @param request 返回操作信息
      * @param sName   学生姓名
      * @param sPhone  学生手机号
      * @param tName   老师姓名
      * @param cName   课程名
      */
     @RequestMapping("/addGrant")
-    public String addGrant(HttpServletRequest request, String sName, String sPhone, String tName, String cName) {
-        String msg = grantService.addGrant(sName, sPhone, tName, cName);
-        System.out.println(msg);
-        if (msg.equals("成功添加"))
-            return "redirect:grant-list.html";
-        else {
-            request.setAttribute("msg", msg + ",请重新输入");
-            return "grant";
-        }
+    @ResponseBody
+    public String addGrant(String sName, String sPhone, String tName, String cName) {
+        return grantService.addGrant(sName, sPhone, tName, cName);
     }
-
-
 }

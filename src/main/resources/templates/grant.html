@@ -24,10 +24,9 @@
 <div class="pd-20">
 
     <div class="Huiform">
-        <form th:action="@{/addGrant}" method="post">
+        <form method="post" id="timeForm">
             <table class="table table-bg">
                 <tbody>
-                <div><span th:text="${msg}" style="color: red;"> </span></div>
                 <tr>
                     <th width="100" class="text-r"><span class="c-red">*</span> 学生姓名：</th>
                     <td><input type="text" style="width:200px" class="input-text"
@@ -81,7 +80,8 @@
                 <tr>
                     <th></th>
                     <td>
-                        <button class="btn btn-success radius" type="submit"><i class="icon-ok"></i> 确定</button>
+                        <button class="btn btn-success radius" type="button" id="btn"><i class="icon-ok"></i> 确定
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -98,6 +98,34 @@
     $(".Huiform").Validform({
         tiptype: 2
     });
+</script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+
+    $("#btn").click(function () {
+        var data = $("#timeForm").serialize();
+        submit(data);
+    });
+
+    function submit(data) {
+        $.ajax({
+            url: '/addGrant', // ajax 请求地址
+            type: 'post',//请求方式 ’GET‘或’POST‘，默认为’GET‘。
+            data: data,
+            dataType: "text",//根据返回数据类型，可以有如下数据可选：xml html script json jsonp text
+            //请求成功后的回调函数
+            success: function (msg) {
+                alert(msg);
+            },
+            //请求失败时调用此函数。有以下三个参数：XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象。
+            error: function (data) {
+                console.log(data);// 打印错误信息
+            }
+        });
+
+    }
+
+    /*]]>*/
 </script>
 
 
