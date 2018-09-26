@@ -3,10 +3,8 @@ package com.qilinxx.kuding.service.impl;
 import com.qilinxx.kuding.domain.mapper.StudentMapper;
 import com.qilinxx.kuding.domain.mapper.TeacherMapper;
 import com.qilinxx.kuding.domain.model.Student;
-import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.service.StudentService;
 import com.qilinxx.kuding.util.DateKit;
-import com.qilinxx.kuding.util.Md5Utils;
 import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +64,6 @@ public class StudentServiceImpl  implements StudentService {
     @Override
     public Integer stopStudent(String uid) {
         Student student=studentMapper.selectByPrimaryKey(uid);
-
         student.setsState(false);
         System.out.println(student);
         return  studentMapper.updateByPrimaryKeySelective(student);
@@ -105,4 +102,6 @@ public class StudentServiceImpl  implements StudentService {
         }
         return "1";
     }
+
+
 }

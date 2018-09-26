@@ -49,5 +49,11 @@ server:
 #logging:
 #  level:
 #     com.qilinxx.kuding : debug
-
-
+#上传文件大小不限制
+ # spring.servlet.multipart.max-file-size=-1
+  #spring.servlet.multipart.max-request-size=-1
+spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1

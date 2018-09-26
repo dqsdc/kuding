@@ -57,7 +57,6 @@ public class StudentController {
         List<Student> studentList=studentService.selectAllStudent();
         model.addAttribute("commons",new Commons());
         model.addAttribute("studentList",studentList);
-
         return "student-list";
     }
     /** 
@@ -72,7 +71,7 @@ public class StudentController {
         System.out.println(uid);
        Student student= studentService.selectStudentById(uid);
        model.addAttribute("student",student);
-
+        model.addAttribute("commons",new Commons());
         return "student-show";
     }
 

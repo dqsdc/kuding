@@ -1,17 +1,19 @@
 package com.qilinxx.kuding.service;
 
 import com.qilinxx.kuding.domain.model.Teacher;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface TeacherService {
     Teacher selectTeacherById(String uid);
 
-    int changePasswordByTId(String sId, String newpassword);
+    Integer changePasswordByTId(String sId, String newpassword);
 
     List<Teacher> selectAllTeacher();
 
-    Integer addTeacher(Teacher teacher);
+    Integer addTeacher(MultipartFile file, HttpServletRequest request,Teacher teacher);
 
     Integer deleteTeacherById(String uid);
 
@@ -21,5 +23,5 @@ public interface TeacherService {
 
     void editTeacher(Teacher teacher);
 
-    Integer changePasswordBySId(String sId, String newpassword);
+    Integer editTeacherAndFile(MultipartFile file, HttpServletRequest request, Teacher teacher);
 }

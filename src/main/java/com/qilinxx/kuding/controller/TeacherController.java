@@ -1,8 +1,6 @@
 package com.qilinxx.kuding.controller;
 
-import com.qilinxx.kuding.domain.model.Student;
 import com.qilinxx.kuding.domain.model.Teacher;
-import com.qilinxx.kuding.service.TeacherService;
 import com.qilinxx.kuding.service.TeacherService;
 import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -32,14 +32,14 @@ public class TeacherController {
          * @Date: 2018/9/17
          */
         @RequestMapping("teacher-change-password.html")
-        public String tchange_password(String uid, Model model){
+        public String tChange_password(String uid, Model model){
             Teacher teacher = teacherService.selectTeacherById(uid);
             model.addAttribute("teacher",teacher);
             return "teacher-change-password";
         }
         @ResponseBody
         @RequestMapping("/tchangePassword")
-        public String tchangePassword(String sId,String newpassword){
+        public String tChangePassword(String sId,String newpassword){
         int i=teacherService.changePasswordByTId(sId,newpassword);
         System.out.println(sId+newpassword);
         return   "修改成功";
@@ -67,11 +67,12 @@ public class TeacherController {
          * @Date: 2018/9/17
          */
         @RequestMapping("teacher-show.html")
-        public String member_show(String uid,Model model){
+        public String teacher_show(String uid,Model model){
             System.out.println(uid);
             Teacher teacher= teacherService.selectTeacherById(uid);
+            System.out.println(teacher);
             model.addAttribute("teacher",teacher);
-
+            model.addAttribute("commons",new Commons());
             return "teacher-show";
         }
 
@@ -96,15 +97,13 @@ public class TeacherController {
          */
         @ResponseBody
         @RequestMapping("/addTeacher")
-        public String addTeacher(Teacher teacher){
+        public String addTeacher(MultipartFile file, HttpServletRequest request,Teacher teacher){
 
            try {
-               Integer i=teacherService.addTeacher(teacher);
+               Integer i=teacherService.addTeacher(file,request,teacher);
            }catch (Exception e){
                return "添加失败";
            }
-            System.out.println(teacher.gettSex());
-            System.out.println(teacher);
             return "添加成功";
         }
         /**
@@ -120,10 +119,8 @@ public class TeacherController {
             System.out.println(uid);
             Integer i=teacherService.deleteTeacherById(uid);
             if(i>0){
-                System.out.println(i);
                 return "删除成功";
             }else {
-                System.out.println(i);
                 return "删除失败";
             }
 
@@ -181,30 +178,23 @@ public class TeacherController {
 
         @ResponseBody
         @RequestMapping("/editTeacher")
-        public String editTeacher(Teacher teacher){
-            System.out.println(teacher);
-            teacherService.editTeacher(teacher);
-            return "修改成功";
-        } /**
-     *@Author: pengxiaoyu
-     * @Description:跳转到修改密码的页面
-     * @Param: []
-     * @return: java.lang.String
-     * @Date: 2018/9/17
-     */
-//    @RequestMapping("teacher-change-password.html")
-//    public String change_password(String uid,Model model){
-//        Teacher teacher = teacherService.selectTeacherById(uid);
-//        model.addAttribute("teacher",teacher);
-//        return "teacher-change-password";
-//    }
-//    @ResponseBody
-//    @RequestMapping("/tchangePassword")
-//    public String changePassword(String sId,String newpassword){
-//        int i=teacherService.changePasswordBySId(sId,newpassword);
-//        System.out.println(sId+newpassword);
-//        return   "success";
-//    }
+        public String editTeacher(MultipartFile file, javax.servlet.http.HttpServletRequest request, Model model,Teacher teacher) {
+            if(file==null){
+                teacherService.editTeacher(teacher);
+                model.addAttribute("Success","修改成功");
+                return "修改成功";
+            }else {
+                Integer i=teacherService.editTeacherAndFile(file,request,teacher);
+                if (i>0){
+                    model.addAttribute("isSuccess",i);
+                    return "修改成功";
+                }else {
+                    model.addAttribute("isSuccess",i);
+                    return "修改失败";
+                }
+
+            }
+        }
 
 
  }
