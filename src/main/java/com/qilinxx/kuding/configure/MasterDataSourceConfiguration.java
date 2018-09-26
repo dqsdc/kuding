@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @AutoConfigureAfter(DataSourceConfiguration.class)
-@MapperScan(basePackages = "com.qilinxx.kuding.domain",sqlSessionFactoryRef="masterSqlSessionFactory",basePackageClasses=MapperScannerConfigurer.class)
+@MapperScan(basePackages = "com.qilinxx.kuding.domain", sqlSessionFactoryRef = "masterSqlSessionFactory", basePackageClasses = MapperScannerConfigurer.class)
 public class MasterDataSourceConfiguration {
     @Bean(name = "masterSqlSessionFactory")
     @Primary
@@ -35,14 +35,14 @@ public class MasterDataSourceConfiguration {
         bean.setTypeAliasesPackage("com.qilinxx.kuding.domain.model");
         return bean.getObject();
     }
-    
+
     @Bean(name = "masterTransactionManager")
     public DataSourceTransactionManager masterTransactionManager(@Qualifier("masterDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean(name = "masterSqlSessionTemplate")
-    public SqlSessionTemplate masterSqlSessionTemplate(@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+    public SqlSessionTemplate masterSqlSessionTemplate(@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }
