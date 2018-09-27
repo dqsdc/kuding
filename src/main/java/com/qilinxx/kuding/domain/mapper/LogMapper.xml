@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qilinxx.kuding.domain.mapper.GrantMapper">
-  <resultMap id="BaseResultMap" type="com.qilinxx.kuding.domain.model.Grant">
-    <id column="g_id" jdbcType="VARCHAR" property="gId" />
-    <result column="g_record" jdbcType="VARCHAR" property="gRecord" />
-    <result column="g_time" jdbcType="BIGINT" property="gTime" />
-    <result column="g_url" jdbcType="VARCHAR" property="gUrl" />
-    <result column="g_remark" jdbcType="VARCHAR" property="gRemark" />
-    <result column="g_did_id" jdbcType="VARCHAR" property="gDidId" />
-    <result column="g_sid_id" jdbcType="VARCHAR" property="gSidId" />
-    <result column="g_tid_id" jdbcType="VARCHAR" property="gTidId" />
+<mapper namespace="com.qilinxx.kuding.domain.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.qilinxx.kuding.domain.model.Log">
+    <id column="l_id" jdbcType="VARCHAR" property="lId" />
+    <result column="l_action" jdbcType="VARCHAR" property="lAction" />
+    <result column="l_user_id" jdbcType="VARCHAR" property="lUserId" />
+    <result column="l_ip" jdbcType="VARCHAR" property="lIp" />
+    <result column="l_create_time" jdbcType="BIGINT" property="lCreateTime" />
+    <result column="l_state" jdbcType="VARCHAR" property="lState" />
+    <result column="l_remark" jdbcType="VARCHAR" property="lRemark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,13 +69,6 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    g_id, g_record, g_time, g_url, g_remark, g_did_id, g_sid_id, g_tid_id
+    l_id, l_action, l_user_id, l_ip, l_create_time, l_state, l_remark
   </sql>
-  <select id="isExist" resultType="Integer">
-    SELECT * FROM web_grant WHERE g_did_id=#{did} AND g_sid_id=#{sid}
-  </select>
-
-  <update id="updateDoneGrant" parameterType="Integer">
-    UPDATE web_grant SET g_record = 1 WHERE #{now} > g_time AND g_record!=2
-  </update>
 </mapper>
