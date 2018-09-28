@@ -155,11 +155,6 @@ public class IndexController {
         return "system-shielding";
     }
 
-    @RequestMapping("system-log.html")
-    public String showSystemLog() {
-        return "system-log";
-    }
-
     @RequestMapping("admin-role.html")
     public String showAdminRole() {
         return "admin-role";

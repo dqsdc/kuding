@@ -8,6 +8,8 @@ import com.qilinxx.kuding.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Auther: LJM
  * @Date: 2018-09-27 11:46
@@ -63,5 +65,10 @@ public class LogServiceImpl implements LogService {
         log.setlSid(sid);
         log.setlTid(tid);
         logMapper.insert(log);
+    }
+
+    @Override
+    public List<Log> getAllLog() {
+        return logMapper.selectAll();
     }
 }
