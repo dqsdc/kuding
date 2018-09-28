@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.controller;
 
+import com.qilinxx.kuding.configure.WebConst;
 import com.qilinxx.kuding.configure.WebSecurityConfig;
 import com.qilinxx.kuding.domain.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String show(HttpSession session) {
-        if (session.getAttribute(WebSecurityConfig.SESSION_KEY)==null){
+        if (session.getAttribute(WebConst.SESSION_USER_KEY)==null){
         return "newLogin";}
         else{
             return "index";

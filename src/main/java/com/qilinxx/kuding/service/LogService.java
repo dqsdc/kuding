@@ -11,4 +11,6 @@ public interface LogService {
     void insertLog(Log log);
 
     void insertLog(String action,String userId,String Ip);
+
+    void insertLog(String action, String userId, String ip,String sid,String tid);
 }

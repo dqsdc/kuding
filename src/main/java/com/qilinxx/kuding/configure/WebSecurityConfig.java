@@ -16,8 +16,6 @@ import java.io.IOException;
 @Configuration
 public class WebSecurityConfig extends WebMvcConfigurationSupport {
 
-    public static final String SESSION_KEY="super";
-
     @Bean
     public SecurityInterceptor getSecurityInterceptor(){
         return  new SecurityInterceptor();

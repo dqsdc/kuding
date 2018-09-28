@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.controller;
 
+import com.qilinxx.kuding.configure.WebConst;
 import com.qilinxx.kuding.configure.WebSecurityConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +23,7 @@ public class LoginController {
         if (adminName!=null&&password!=null){
             System.out.println(adminName+password);
             if (adminName.equals("admin")&& password.equals("123456")){
-                HashMap<String, Object> adminMap = new HashMap<>();
-                adminMap.put("username",adminName);
-                adminMap.put("password",password);
-                session.setAttribute(WebSecurityConfig.SESSION_KEY,adminMap);
+                session.setAttribute(WebConst.SESSION_USER_KEY,adminName);
                 return "redirect:index";
             }
             else{

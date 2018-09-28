@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.service.impl;
 
+import com.google.gson.Gson;
 import com.qilinxx.kuding.domain.mapper.*;
 import com.qilinxx.kuding.domain.model.*;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
@@ -75,7 +76,8 @@ public class GrantServiceImpl implements GrantService {
         grant.setgTime(unixDate);
         if ("2".equals(grant.getgRecord())) grant.setgRecord("0");//重新安排已取消的课程
         grantMapper.updateByPrimaryKey(grant);
-        return "添加成功";
+        Detail detail=detailMapper.selectByPrimaryKey(grant.getgDidId());
+        return "修改"+detail.getdName()+"的上课时间为"+time+"&&"+grant.getgSidId()+"&&"+grant.getgTidId();
     }
 
     @Override
@@ -83,7 +85,8 @@ public class GrantServiceImpl implements GrantService {
         Grant grant = grantMapper.selectByPrimaryKey(gid);
         grant.setgRecord("2");
         grantMapper.updateByPrimaryKey(grant);
-        return "ok";
+        Detail detail=detailMapper.selectByPrimaryKey(grant.getgDidId());
+        return "取消"+detail.getdName()+"成功&&"+grant.getgSidId()+"&&"+grant.getgTidId();
     }
 
 
@@ -114,7 +117,7 @@ public class GrantServiceImpl implements GrantService {
                 grantMapper.insertSelective(grant);
             }
         }
-        return "成功添加";
+        return "添加 "+cName+" 成功&&"+student.getsId()+"&&"+teacher.gettId();
     }
 
     private GrantVo improve(Grant grant) {

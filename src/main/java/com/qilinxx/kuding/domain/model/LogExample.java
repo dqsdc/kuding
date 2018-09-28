@@ -583,6 +583,146 @@ public class LogExample {
             addCriterion("l_remark not between", value1, value2, "lRemark");
             return (Criteria) this;
         }
+
+        public Criteria andLSidIsNull() {
+            addCriterion("l_sid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidIsNotNull() {
+            addCriterion("l_sid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidEqualTo(String value) {
+            addCriterion("l_sid =", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidNotEqualTo(String value) {
+            addCriterion("l_sid <>", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidGreaterThan(String value) {
+            addCriterion("l_sid >", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidGreaterThanOrEqualTo(String value) {
+            addCriterion("l_sid >=", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidLessThan(String value) {
+            addCriterion("l_sid <", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidLessThanOrEqualTo(String value) {
+            addCriterion("l_sid <=", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidLike(String value) {
+            addCriterion("l_sid like", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidNotLike(String value) {
+            addCriterion("l_sid not like", value, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidIn(List<String> values) {
+            addCriterion("l_sid in", values, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidNotIn(List<String> values) {
+            addCriterion("l_sid not in", values, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidBetween(String value1, String value2) {
+            addCriterion("l_sid between", value1, value2, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLSidNotBetween(String value1, String value2) {
+            addCriterion("l_sid not between", value1, value2, "lSid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidIsNull() {
+            addCriterion("l_tid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidIsNotNull() {
+            addCriterion("l_tid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidEqualTo(String value) {
+            addCriterion("l_tid =", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidNotEqualTo(String value) {
+            addCriterion("l_tid <>", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidGreaterThan(String value) {
+            addCriterion("l_tid >", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidGreaterThanOrEqualTo(String value) {
+            addCriterion("l_tid >=", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidLessThan(String value) {
+            addCriterion("l_tid <", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidLessThanOrEqualTo(String value) {
+            addCriterion("l_tid <=", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidLike(String value) {
+            addCriterion("l_tid like", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidNotLike(String value) {
+            addCriterion("l_tid not like", value, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidIn(List<String> values) {
+            addCriterion("l_tid in", values, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidNotIn(List<String> values) {
+            addCriterion("l_tid not in", values, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidBetween(String value1, String value2) {
+            addCriterion("l_tid between", value1, value2, "lTid");
+            return (Criteria) this;
+        }
+
+        public Criteria andLTidNotBetween(String value1, String value2) {
+            addCriterion("l_tid not between", value1, value2, "lTid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
