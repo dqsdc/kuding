@@ -50,16 +50,12 @@
 				<td th:text="${student.sEmail}">admin@mail.com</td>
 			</tr>
 			<tr>
-				<th class="text-r">地址：</th>
-				<td>北京市 海淀区</td>
+				<th class="text-r">年级：</th>
+				<td th:text="${student.sGrade}">北京市 海淀区</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td th:text="${#dates.format(student.sCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014.12.20</td>
-			</tr>
-			<tr>
-				<th class="text-r">积分：</th>
-				<td>330</td>
+				<td th:text="${commons.fmtdate(student.sCreateTime)}">2014.12.20</td>
 			</tr>
 		</tbody>
 	</table>

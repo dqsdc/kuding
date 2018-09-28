@@ -9,4 +9,5 @@ import tk.mybatis.mapper.common.Mapper;
 @Repository
 public interface GrantMapper extends Mapper<Grant> {
     Integer isExist(@Param("sid") String sid,  @Param("did") String did);
+    Integer updateDoneGrant(@Param("now") Integer time);
 }

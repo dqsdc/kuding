@@ -23,4 +23,6 @@ public interface StudentService {
     Integer changePasswordBySId(String sId, String newpassword);
 
     String checkNumber(String number);
+
+
 }

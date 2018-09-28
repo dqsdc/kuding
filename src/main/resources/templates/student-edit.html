@@ -97,14 +97,20 @@
 					<option selected>请选择年级</option>
 					<option value="一年级" id="option-1">一年级</option>
 					<option value="二年级" id="option-2">二年级</option>
-					<option value="三年级"  id="option-3">三年级</option>
+					<option value="三年级" id="option-3">三年级</option>
+					<option value="四年级" id="option-4">四年级</option>
+					<option value="五年级" id="option-5">五年级</option>
+					<option value="六年级" id="option-6">六年级</option>
+					<option value="七年级" id="option-7">七年级</option>
+					<option value="八年级" id="option-8">八年级</option>
+					<option value="九年级" id="option-9">九年级</option>
 				</select>
 				</span> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="sRemark" cols=""  th:value="${student.sRemark}" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<textarea name="sRemark" cols=""  th:text="${student.sRemark}" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
 				<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
 			</div>
 		</div>
@@ -141,13 +147,19 @@
 		}else {
             $("#sex-1").attr("checked","checked");
 		}
-        if(sGrade=="一年级"){
-            $("#option-1").attr("selected","selected")
-        }else if(sGrade=="二年级") {
-            $("#option-2").attr("selected","selected")
-        }else{
-            $("#option-3").attr("selected","selected")
-		}
+		switch (sGrade) {
+			case "一年级": $("#option-1").attr("selected","selected");break;
+            case "二年级": $("#option-2").attr("selected","selected");break;
+            case "三年级": $("#option-3").attr("selected","selected");break;
+            case "四年级": $("#option-4").attr("selected","selected");break;
+            case "五年级": $("#option-5").attr("selected","selected");break;
+            case "六年级": $("#option-6").attr("selected","selected");break;
+            case "七年级": $("#option-7").attr("selected","selected");break;
+            case "八年级": $("#option-8").attr("selected","selected");break;
+            case "九年级": $("#option-9").attr("selected","selected");break;
+
+
+        }
 
         if(state){
             $("#state-1").attr("checked","checked");

@@ -5,11 +5,12 @@ import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 import com.qilinxx.kuding.service.GrantService;
 import com.qilinxx.kuding.util.Commons;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.List;
  */
 @Controller
 public class GrantController {
+
+    private Logger log = LoggerFactory.getLogger(GrantController.class);
 
     @Autowired
     GrantService grantService;
@@ -54,11 +57,10 @@ public class GrantController {
     @RequestMapping("grant-list.html")
     public String showGrantList(HttpServletRequest request) {
         List<GrantVo> grants = grantService.selectAllGrant();
-        System.out.println(grants.size());
-        System.out.println(grants.get(0).toString());
         request.setAttribute("grants", grants);
         request.setAttribute("size", grants.size());
         request.setAttribute("commons", new Commons());
+        log.info("查看列表");
         return "grant-list";
     }
 
@@ -66,7 +68,9 @@ public class GrantController {
     @RequestMapping("/editTime")
     @ResponseBody
     public String editGrantTime(HttpSession session, String time) {
+
         String gid = (String) session.getAttribute("gid");
+        System.out.println(grantService.updateGrantTimeById(gid, time));
         return grantService.updateGrantTimeById(gid, time);
     }
 

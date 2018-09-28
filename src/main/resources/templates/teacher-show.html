@@ -23,14 +23,16 @@
 </head>
 <body>
 <div class="cl pd-20" style=" background-color:#5bacb6">
-	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
+	<img class="avatar size-XL l" th:if="${teacher.tHeadImage!=null}" th:src="${teacher.tHeadImage}">
+	<img class="avatar size-XL l" th:unless="${teacher.tHeadImage!=null}" src="static/h-ui/images/ucnter/avatar-default.jpg">
+
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
 			<span th:text="${teacher.tName}" class="f-18">张三</span>
 			年龄：<span th:text="${teacher.tAge}" class="pl-10 f-12">40</span>
 		</dt>
-		<dd  th:if="${teacher.tRemark}==''" class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
-		<dd  th:unless="${teacher.tRemark}==''" th:text="${teacher.tRemark}" class="pt-10 f-12" style="margin-left:0">lalala</dd>
+		<dd  th:if="${teacher.tDetail==null}" class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+		<dd  th:unless="${teacher.tDetail==null}" th:text="${teacher.tDetail}" class="pt-10 f-12" style="margin-left:0">lalala</dd>
 	</dl>
 </div>
 <div class="pd-20">
@@ -45,21 +47,17 @@
 				<th class="text-r">手机：</th>
 				<td th:text="${teacher.tAccount}">13000000000</td>
 			</tr>
-			<!--<tr>-->
-				<!--<th class="text-r">邮箱：</th>-->
-				<!--<td th:text="${teacher.tEmail}">admin@mail.com</td>-->
-			<!--</tr>-->
 			<tr>
-				<th class="text-r">地址：</th>
-				<td>北京市 海淀区</td>
+				<th class="text-r">学历：</th>
+				<td th:text="${teacher.tDegree}">北京市 海淀区</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td th:text="${#dates.format(teacher.tCreateTime, 'yyyy-MM-dd HH:mm:ss')}">2014.12.20</td>
+				<td th:text="${commons.fmtdate(teacher.tCreateTime)}">2014-6-11 11:11:42</td>
 			</tr>
 			<tr>
-				<th class="text-r">积分：</th>
-				<td>330</td>
+				<th class="text-r">年龄：</th>
+				<td th:text="${teacher.tAge}">330</td>
 			</tr>
 		</tbody>
 	</table>

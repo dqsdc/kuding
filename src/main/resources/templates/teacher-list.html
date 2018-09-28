@@ -28,14 +28,8 @@
 	<a  id="a" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
 		<i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加老师','teacher-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加老师</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加老师','teacher-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加老师</a></span> <span class="r">共有数据：<strong th:text="${teacherList.size()}">88</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
@@ -45,7 +39,7 @@
 				<th width="100">用户名</th>
 				<th width="40">性别</th>
 				<th width="90">手机</th>
-				<th width="150">备注</th>
+				<th width="150">简介</th>
 				<th width="">年龄</th>
 				<th width="130">加入时间</th>
 				<th width="70">状态</th>
@@ -60,7 +54,7 @@
 				<td th:if="${teahcer.tSex}" >女</td>
 				<td th:unless="${teahcer.tSex}">男</td>
 				<td th:text="${teahcer.tAccount}">13000000000</td>
-				<td th:text="${teahcer.tRemark}">admin@mail.com</td>
+				<td th:text="${teahcer.tDetail}">admin@mail.com</td>
 				<td th:text="${teahcer.tAge}" class="text-l">一年级</td>
 				<td th:text="${commons.fmtdate(teahcer.tCreateTime)}">2014-6-11 11:11:42</td>
 				<td class="td-status" th:if="${teahcer.tState}"><span class="label label-success radius">已启用</span></td>
