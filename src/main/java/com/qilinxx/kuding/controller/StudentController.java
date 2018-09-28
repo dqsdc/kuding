@@ -1,16 +1,16 @@
 package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.domain.model.Student;
+import com.qilinxx.kuding.service.LogService;
 import com.qilinxx.kuding.service.StudentService;
 import com.qilinxx.kuding.util.Commons;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,9 +19,10 @@ import java.util.List;
  * @Description:
  */
 @Controller
-public class StudentController {
+public class StudentController extends BaseController  {
 
-   
+    @Autowired
+    LogService logService;
     @Autowired
     private StudentService studentService;
 
@@ -40,9 +41,10 @@ public class StudentController {
     }
     @ResponseBody
     @RequestMapping("/changePassword")
-    public String changePassword(String sId,String newpassword){
+    public String changePassword(String sId,String newpassword,HttpServletRequest request){
         int i=studentService.changePasswordBySId(sId,newpassword);
-        System.out.println(sId+newpassword);
+        logService.insertLog("成功修改学生ID为"+sId+"的密码",userId(request), request.getRemoteAddr());
+
         return   "success";
     }
     /** 
@@ -96,10 +98,13 @@ public class StudentController {
      */
     @ResponseBody
     @RequestMapping("/addStudent")
-    public String addStudent(Student student){
+    public String addStudent(Student student, HttpServletRequest request){
         Integer i=studentService.addStudent(student);
-        System.out.println(student.getsSex());
-        System.out.println(student);
+        if (i>0) {
+            logService.insertLog("成功添加一个学生"+student.getsName(),userId(request), request.getRemoteAddr());
+        }else {
+            logService.insertLog("添加一个学生"+student.getsName()+"失败",userId(request), request.getRemoteAddr());
+        }
         return "添加成功";
     }
     /**
@@ -111,14 +116,13 @@ public class StudentController {
     */
     @ResponseBody
     @RequestMapping("/deleteStudent")
-    public String deleteStudent( String uid){
-        System.out.println(uid);
+    public String deleteStudent( String uid,HttpServletRequest request){
         Integer i=studentService.deleteStudentById(uid);
-        if(i>0){
-            System.out.println(i);
+        if (i>0) {
+            logService.insertLog("成功删除一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
             return "删除成功";
         }else {
-            System.out.println(i);
+            logService.insertLog("删除一个学生，他的ID为"+uid+"失败",userId(request), request.getRemoteAddr());
             return "删除失败";
         }
 
@@ -132,11 +136,18 @@ public class StudentController {
     */
     @ResponseBody
     @RequestMapping("/stopStudent")
-    public String stopStudent(String uid){
-
+    public String stopStudent(String uid,HttpServletRequest request){
         Integer i=studentService.stopStudent(uid);
 
-        return "success";
+        if (i>0) {
+            logService.insertLog("成功停用一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
+            return  "停用成功";
+        }else {
+            logService.insertLog("停用一个学生，他的ID为"+uid+"失败",userId(request), request.getRemoteAddr());
+            return  "停用失败";
+        }
+
+
 
     }
     /**
@@ -148,8 +159,9 @@ public class StudentController {
     */
     @ResponseBody
     @RequestMapping("/startStudent")
-    public String startStudent(String uid){
+    public String startStudent(String uid,HttpServletRequest request){
         Integer i=studentService.startStudent(uid);
+        logService.insertLog("成功启用一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
         return "success";
     }
     /**
@@ -176,16 +188,15 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping("/editStudent")
-    public String editStudent(Student student){
-        System.out.println(student);
+    public String editStudent(Student student,HttpServletRequest request){
         studentService.editStudent(student);
+        logService.insertLog("成功修改学生"+student.getsName()+"的信息",userId(request), request.getRemoteAddr());
         return "修改成功";
     }
 
     @ResponseBody
     @RequestMapping("/checkNumber")
     public String checkNumber(String number){
-        //System.out.println(number);
         return  studentService.checkNumber(number);
 
     }

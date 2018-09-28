@@ -1,6 +1,7 @@
 package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.domain.model.Teacher;
+import com.qilinxx.kuding.service.LogService;
 import com.qilinxx.kuding.service.TeacherService;
 import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ import java.util.List;
  * @Description:
  */
 @Controller
-public class TeacherController {
+public class TeacherController extends BaseController {
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private TeacherService teacherService;
@@ -39,10 +42,12 @@ public class TeacherController {
         }
         @ResponseBody
         @RequestMapping("/tchangePassword")
-        public String tChangePassword(String sId,String newpassword){
-        int i=teacherService.changePasswordByTId(sId,newpassword);
-        System.out.println(sId+newpassword);
-        return   "修改成功";
+        public String tChangePassword(String sId,String newPassword,HttpServletRequest request){
+        int i=teacherService.changePasswordByTId(sId,newPassword);
+        logService.insertLog("修改老师密码成功"+sId,userId(request), request.getRemoteAddr());
+
+
+            return   "修改成功";
     }
         /**
          *@Author: pengxiaoyu
@@ -102,8 +107,13 @@ public class TeacherController {
            try {
                Integer i=teacherService.addTeacher(file,request,teacher);
            }catch (Exception e){
+               logService.insertLog("添加老师失败"+teacher.gettName(),userId(request), request.getRemoteAddr());
+
                return "添加失败";
+
            }
+            logService.insertLog("成功添加老师"+teacher.gettName(),userId(request), request.getRemoteAddr());
+
             return "添加成功";
         }
         /**
@@ -115,12 +125,14 @@ public class TeacherController {
          */
         @ResponseBody
         @RequestMapping("/deleteTeacher")
-        public String deleteTeacher( String uid){
+        public String deleteTeacher( String uid,HttpServletRequest request){
             System.out.println(uid);
             Integer i=teacherService.deleteTeacherById(uid);
             if(i>0){
+                logService.insertLog("成功删除老师"+uid,userId(request), request.getRemoteAddr());
                 return "删除成功";
             }else {
+                logService.insertLog("删除老师"+uid+"失败",userId(request), request.getRemoteAddr());
                 return "删除失败";
             }
 
@@ -134,9 +146,10 @@ public class TeacherController {
          */
         @ResponseBody
         @RequestMapping("/stopTeacher")
-        public String stopTeacher(String uid){
+        public String stopTeacher(String uid,HttpServletRequest request){
 
             Integer i=teacherService.stopTeacher(uid);
+            logService.insertLog("成功停用老师"+uid,userId(request), request.getRemoteAddr());
 
             return "success";
 
@@ -150,8 +163,9 @@ public class TeacherController {
          */
         @ResponseBody
         @RequestMapping("/startTeacher")
-        public String startTeacher(String uid){
+        public String startTeacher(String uid,HttpServletRequest request){
             Integer i=teacherService.startTeacher(uid);
+            logService.insertLog("成功启用老师"+uid,userId(request), request.getRemoteAddr());
             return "success";
         }
         /**
@@ -182,14 +196,20 @@ public class TeacherController {
             if(file==null){
                 teacherService.editTeacher(teacher);
                 model.addAttribute("Success","修改成功");
+                logService.insertLog("成功修改老师"+teacher.gettName()+"的信息",userId(request), request.getRemoteAddr());
+
                 return "修改成功";
             }else {
                 Integer i=teacherService.editTeacherAndFile(file,request,teacher);
                 if (i>0){
+                    logService.insertLog("成功修改老师"+teacher.gettName()+"的信息",userId(request), request.getRemoteAddr());
+
                     model.addAttribute("isSuccess",i);
                     return "修改成功";
                 }else {
                     model.addAttribute("isSuccess",i);
+                    logService.insertLog("修改老师"+teacher.gettName()+"的信息失败",userId(request), request.getRemoteAddr());
+
                     return "修改失败";
                 }
 
