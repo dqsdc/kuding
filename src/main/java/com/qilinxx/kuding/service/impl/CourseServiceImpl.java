@@ -23,7 +23,7 @@ public class CourseServiceImpl implements CourseService {
     }
 //保存课程
 
-    public void insert(Course course) {
+    public String  insert(Course course) {
         String uu32 = UUID.UU32();
         course.setcId(uu32);
         Date now = DateKit.getNow();
@@ -31,12 +31,14 @@ public class CourseServiceImpl implements CourseService {
         course.setcCreateTime(timeLong);
         course.setcRemark("0");//设置状态为未发布
         courseMapper.insert(course);
+        return "增加了:"+course.getcName()+"这门课，"+"总共有:"+course.getcCount()+"节课";
     }
 //更新课程
 
-    public void update(Course course) {
+    public String  update(Course course) {
         course.setcRemark("0");
         courseMapper.updateByPrimaryKeySelective(course);
+        return "更新了这门:"+course.getcName()+",并且还在验证通过中。。";
     }
 
     /**
@@ -44,9 +46,10 @@ public class CourseServiceImpl implements CourseService {
      */
 
 
-    public void delete(String id) {
-
+    public String  delete(String id) {
+        Course course = courseMapper.selectByPrimaryKey(id);
         courseMapper.deleteByPrimaryKey(id);
+        return "删除了这门:"+course.getcName()+"课程";
     }
 
     /**
@@ -66,10 +69,11 @@ public class CourseServiceImpl implements CourseService {
      * @return  mapper返回Integer
      */
     @Override
-    public Integer stopCourse(String cId) {
+    public String  stopCourse(String cId) {
         Course course = courseMapper.selectByPrimaryKey(cId);
         course.setcRemark("0");
-        return courseMapper.updateByPrimaryKeySelective(course);
+        courseMapper.updateByPrimaryKeySelective(course);
+        return "停止开设:"+course.getcName();
     }
 
     /**
@@ -78,9 +82,10 @@ public class CourseServiceImpl implements CourseService {
      * @return mapper返回Integer
      */
     @Override
-    public Integer startCourse(String cId) {
+    public String  startCourse(String cId) {
         Course course = courseMapper.selectByPrimaryKey(cId);
         course.setcRemark("1");
-        return courseMapper.updateByPrimaryKeySelective(course);
+        courseMapper.updateByPrimaryKeySelective(course);
+        return "开设了:"+course.getcName();
     }
 }

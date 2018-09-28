@@ -4,13 +4,17 @@ import com.qilinxx.kuding.domain.model.Course;
 import com.qilinxx.kuding.domain.model.Detail;
 import com.qilinxx.kuding.service.CourseService;
 import com.qilinxx.kuding.service.DetailService;
+import com.qilinxx.kuding.service.LogService;
 import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -18,11 +22,13 @@ import java.util.List;
  * 课程管理控制层
  */
 @Controller
-public class CourseController {
+public class CourseController extends BaseController {
     @Autowired
     private CourseService courseService;
     @Autowired
     private DetailService detailService;
+    @Autowired
+    private LogService logService;
 
     /**
      * @return 跳转到course页面
@@ -52,12 +58,13 @@ public class CourseController {
      * @return 返回到course界面
      */
     @RequestMapping("courseAdd")
-    public String courseInsert(String cName, String cDetail, String cCount) {
+    public String courseInsert(String cName, String cDetail, String cCount,HttpServletRequest request) {
         Course course = new Course();
         course.setcName(cName);
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
-        courseService.insert(course);
+        String str = courseService.insert(course);
+        logService.insertLog(str,userId(request),userIp(request));
         return "redirect:article-list.html";
     }
 
@@ -83,13 +90,13 @@ public class CourseController {
      */
     @RequestMapping("courseUpdate")
     @ResponseBody
-    public String courseUpdate(String cName, String cDetail, String cCount, String cId) {
-        Course course = new Course();
+    public String courseUpdate(String cName, String cDetail, String cCount, String cId,HttpServletRequest request) {
+        Course course = courseService.selecteById(cId);
         course.setcName(cName);
         course.setcDetail(cDetail);
         course.setcCount(Integer.parseInt(cCount));
-        course.setcId(cId);
-        courseService.update(course);
+        String str = courseService.update(course);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -98,10 +105,10 @@ public class CourseController {
      */
     @RequestMapping("deleteCourse")
     @ResponseBody
-    public String deleteCourse(String cId) {
+    public String deleteCourse(String cId,HttpServletRequest request) {
         //得到隐藏域id，根据id删除对象
-        courseService.delete(cId);
-        //重新返回到刚才的界面，并且课程已减少
+        String str = courseService.delete(cId);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -141,15 +148,15 @@ public class CourseController {
      */
     @RequestMapping("detailInsert")
     @ResponseBody
-    public String detailInsert(String dName, String dDetail, String dNumber, String dTimeLength, String cId, RedirectAttributes attr) {
+    public String detailInsert(String dName, String dDetail, String dNumber, String dTimeLength, String cId,HttpServletRequest request) {
         Detail detail = new Detail();
         detail.setdName(dName);
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
         detail.setdCidId(cId);
-        detailService.insert(detail);
-        attr.addAttribute("cId", cId);
+        String str = detailService.insert(detail);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -175,15 +182,14 @@ public class CourseController {
      * @return 返回到course界面
      */
     @RequestMapping("detailUpdate")
-    public String detailUpdate(String dName, String dDetail, String dNumber, String dTimeLength, String dId, String dCidId, RedirectAttributes attr) {
-        Detail detail = new Detail();
+    public String detailUpdate(String dName, String dDetail, String dNumber, String dTimeLength, String dId, String dCidId, HttpServletRequest request) {
+        Detail detail = detailService.selectById(dId);
         detail.setdName(dName);
         detail.setdDetail(dDetail);
         detail.setdNumber(Integer.parseInt(dNumber));
         detail.setdTimeLength(Integer.parseInt(dTimeLength));
-        detail.setdId(dId);
-        detailService.update(detail);
-        attr.addAttribute("cId", dCidId);
+        String str = detailService.update(detail);
+        logService.insertLog(str,userId(request),userIp(request));
         return "redirect:detail-list.html";//返回界面
     }
 
@@ -192,10 +198,10 @@ public class CourseController {
      */
     @RequestMapping("deleteDetail")
     @ResponseBody
-    public String deleteDetail(String dId) {
+    public String deleteDetail(String dId,HttpServletRequest request) {
         //得到隐藏域id，根据id删除对象
-        detailService.deleteById(dId);
-        //重新返回到刚才的界面，并且课程已减少
+        String str = detailService.deleteById(dId);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -206,8 +212,10 @@ public class CourseController {
      */
     @RequestMapping("stopCourse")
     @ResponseBody
-    public String stopCourse(String cId) {
-        Integer i = courseService.stopCourse(cId);
+    public String stopCourse(String cId,HttpServletRequest request) {
+        String str = courseService.stopCourse(cId);
+        System.out.println("禁用信息："+str);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -219,8 +227,11 @@ public class CourseController {
      */
     @RequestMapping("startCourse")
     @ResponseBody
-    public String startCourse(String cId) {
-        Integer i = courseService.startCourse(cId);
+    public String startCourse(String cId, HttpServletRequest request) {
+        String str = courseService.startCourse(cId);
+        System.out.println(userId(request));
+        System.out.println("传过来的语句："+str);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -232,8 +243,9 @@ public class CourseController {
      */
     @RequestMapping("stopDetail")
     @ResponseBody
-    public String stopDetail(String dId) {
-        Integer i = detailService.stopDetail(dId);
+    public String stopDetail(String dId,HttpServletRequest request) {
+        String str = detailService.stopDetail(dId);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 
@@ -244,8 +256,9 @@ public class CourseController {
      */
     @RequestMapping("startDetail")
     @ResponseBody
-    public String startDetail(String dId) {
-        Integer i = detailService.startDetail(dId);
+    public String startDetail(String dId,HttpServletRequest request) {
+        String str = detailService.startDetail(dId);
+        logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
 

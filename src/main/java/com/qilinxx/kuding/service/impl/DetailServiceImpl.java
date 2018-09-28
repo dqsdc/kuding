@@ -35,7 +35,7 @@ public class DetailServiceImpl implements DetailService {
      * @param detail 添加对象
      */
 
-    public void insert(Detail detail) {
+    public String  insert(Detail detail) {
         String uu32 = UUID.UU32();//生成uuid
         detail.setdId(uu32);
         Date now = DateKit.getNow();
@@ -43,6 +43,7 @@ public class DetailServiceImpl implements DetailService {
         detail.setdCreateTime(timeLong);
         detail.setdRemark("0");
         detailMapper.insertSelective(detail);
+        return "添加了详课:"+detail.getdName()+"他是第"+detail.getdNumber()+"章"+",课程有"+detail.getdTimeLength()+"分钟";
     }
 
     /**
@@ -62,9 +63,10 @@ public class DetailServiceImpl implements DetailService {
      * @param detail 更新对象
      */
     @Override
-    public void update(Detail detail) {
+    public String  update(Detail detail) {
         detail.setdRemark("0");
         detailMapper.updateByPrimaryKeySelective(detail);
+        return "更新了:"+detail.getdName()+"课程信息";
     }
 
     /**
@@ -73,21 +75,24 @@ public class DetailServiceImpl implements DetailService {
      * @param did 详细课程id
      */
     @Override
-    public void deleteById(String did) {
+    public String  deleteById(String did) {
+        Detail detail = detailMapper.selectByPrimaryKey(did);
         detailMapper.deleteByPrimaryKey(did);
+        return "删除了:"+detail.getdName()+"这门课";
     }
 
     /**
      * 停用详细课程
      *
      * @param dId 详细课程id
-     * @return 更新后返回
+     * @return 返回
      */
     @Override
-    public Integer stopDetail(String dId) {
+    public String  stopDetail(String dId) {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("0");
-        return detailMapper.updateByPrimaryKeySelective(detail);
+        detailMapper.updateByPrimaryKeySelective(detail);
+        return "停止开设:"+detail.getdName();
     }
 
     /**
@@ -97,10 +102,11 @@ public class DetailServiceImpl implements DetailService {
      * @return 更新后返回
      */
     @Override
-    public Integer startDetail(String dId) {
+    public String  startDetail(String dId) {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("1");
-        return detailMapper.updateByPrimaryKeySelective(detail);
+        detailMapper.updateByPrimaryKeySelective(detail);
+        return "开设了:"+detail.getdName();
     }
 
     /**
