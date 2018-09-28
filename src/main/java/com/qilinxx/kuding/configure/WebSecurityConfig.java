@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,8 @@ import java.io.IOException;
 
 
 @Configuration
-public class WebSecurityConfig extends WebMvcConfigurationSupport {
+public class WebSecurityConfig implements WebMvcConfigurer {
 
-    public static final String SESSION_KEY="super";
 
     @Bean
     public SecurityInterceptor getSecurityInterceptor(){
@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebMvcConfigurationSupport {
             HttpSession session = request.getSession();
 
             //判断是否已有该用户登录的session
-            if(session.getAttribute("admin") !=null){
+            if(session.getAttribute(WebConst.SESSION_USER_KEY) !=null){
                 return  true;
             }
             //跳转到登录页
