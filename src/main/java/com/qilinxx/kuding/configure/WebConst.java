@@ -7,5 +7,8 @@ package com.qilinxx.kuding.configure;
  */
 
 public class WebConst {
-    public static final String SESSION_USER_KEY="super";
+    public static final String SESSION_USER_KEY = "super";
+    public static final String SESSION_USER_VALUE = "super";
+    public static final String SUPER_USERNAME="admin";
+    public static final String SUPER_PASSWORD="123456";
 }

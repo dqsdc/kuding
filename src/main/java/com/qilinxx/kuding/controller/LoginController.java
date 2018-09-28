@@ -21,11 +21,8 @@ public class LoginController {
     public  String loginSure(Model model,String adminName, String password, HttpSession session){
         if (adminName!=null&&password!=null){
             System.out.println(adminName+password);
-            if (adminName.equals("admin")&& password.equals("123456")){
-                HashMap<String, Object> adminMap = new HashMap<>();
-                adminMap.put("username",adminName);
-                adminMap.put("password",password);
-                session.setAttribute(WebConst.SESSION_USER_KEY,adminMap);
+            if (adminName.equals(WebConst.SUPER_USERNAME)&& password.equals(WebConst.SUPER_PASSWORD)){
+                session.setAttribute(WebConst.SESSION_USER_KEY,WebConst.SESSION_USER_VALUE);
                 return "redirect:index";
             }
             else{
