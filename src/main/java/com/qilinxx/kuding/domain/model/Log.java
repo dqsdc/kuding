@@ -1,5 +1,7 @@
 package com.qilinxx.kuding.domain.model;
 
+import org.springframework.stereotype.Controller;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,6 +28,12 @@ public class Log {
 
     @Column(name = "l_remark")
     private String lRemark;
+
+    @Column(name = "l_sid")
+    private String lSid;
+
+    @Column(name = "l_tid")
+    private String lTid;
 
     public String getlId() {
         return lId;
@@ -83,6 +91,22 @@ public class Log {
         this.lRemark = lRemark == null ? null : lRemark.trim();
     }
 
+    public String getlSid() {
+        return lSid;
+    }
+
+    public void setlSid(String lSid) {
+        this.lSid = lSid == null ? null : lSid.trim();
+    }
+
+    public String getlTid() {
+        return lTid;
+    }
+
+    public void setlTid(String lTid) {
+        this.lTid = lTid == null ? null : lTid.trim();
+    }
+
     @Override
     public String toString() {
         return "Log{" +
@@ -93,6 +117,8 @@ public class Log {
                 ", lCreateTime=" + lCreateTime +
                 ", lState='" + lState + '\'' +
                 ", lRemark='" + lRemark + '\'' +
+                ", lSid='" + lSid + '\'' +
+                ", lTid='" + lTid + '\'' +
                 '}';
     }
 }

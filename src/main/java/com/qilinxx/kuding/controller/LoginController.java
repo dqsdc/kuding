@@ -1,7 +1,6 @@
 package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.configure.WebConst;
-import com.qilinxx.kuding.configure.WebSecurityConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -9,6 +9,8 @@
     <result column="l_create_time" jdbcType="BIGINT" property="lCreateTime" />
     <result column="l_state" jdbcType="VARCHAR" property="lState" />
     <result column="l_remark" jdbcType="VARCHAR" property="lRemark" />
+    <result column="l_sid" jdbcType="VARCHAR" property="lSid" />
+    <result column="l_tid" jdbcType="VARCHAR" property="lTid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,6 +71,6 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    l_id, l_action, l_user_id, l_ip, l_create_time, l_state, l_remark
+    l_id, l_action, l_user_id, l_ip, l_create_time, l_state, l_remark, l_sid, l_tid
   </sql>
 </mapper>
