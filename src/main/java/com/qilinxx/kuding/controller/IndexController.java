@@ -1,9 +1,12 @@
 package com.qilinxx.kuding.controller;
 
+import com.qilinxx.kuding.configure.WebSecurityConfig;
 import com.qilinxx.kuding.domain.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Auther: ljm
@@ -16,6 +19,16 @@ public class IndexController {
     @Autowired
     CourseMapper courseMapper;
 
+
+    @RequestMapping("/")
+    public String show(HttpSession session) {
+        if (session.getAttribute(WebSecurityConfig.SESSION_KEY)==null){
+        return "newLogin";}
+        else{
+            return "index";
+        }
+
+    }
     @RequestMapping("/index")
     public String showIndex() {
         return "index";
