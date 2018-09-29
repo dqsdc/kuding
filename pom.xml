@@ -6,7 +6,7 @@
 	<groupId>com.qilinxx</groupId>
 	<artifactId>kuding</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>kuding</name>
 	<description>酷丁少儿编程网上平台</description>

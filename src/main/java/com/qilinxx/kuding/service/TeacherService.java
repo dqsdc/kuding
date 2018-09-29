@@ -24,4 +24,6 @@ public interface TeacherService {
     void editTeacher(Teacher teacher);
 
     Integer editTeacherAndFile(MultipartFile file, HttpServletRequest request, Teacher teacher);
+
+    String selectNameById(String sId);
 }

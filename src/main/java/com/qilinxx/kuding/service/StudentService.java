@@ -24,5 +24,5 @@ public interface StudentService {
 
     String checkNumber(String number);
 
-
+    String selectNameById(String sId);
 }

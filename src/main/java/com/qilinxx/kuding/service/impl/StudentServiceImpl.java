@@ -103,5 +103,10 @@ public class StudentServiceImpl  implements StudentService {
         return "1";
     }
 
+    @Override
+    public String selectNameById(String sId) {
+        return studentMapper.selectNameById(sId);
+    }
+
 
 }

@@ -43,8 +43,10 @@ public class TeacherController extends BaseController {
         @ResponseBody
         @RequestMapping("/tchangePassword")
         public String tChangePassword(String sId,String newPassword,HttpServletRequest request){
+            String name=teacherService.selectNameById(sId);
+
         int i=teacherService.changePasswordByTId(sId,newPassword);
-        logService.insertLog("修改老师密码成功"+sId,userId(request), request.getRemoteAddr());
+        logService.insertLog("修改老师密码成功"+name,userId(request), request.getRemoteAddr());
 
 
             return   "修改成功";
@@ -126,13 +128,14 @@ public class TeacherController extends BaseController {
         @ResponseBody
         @RequestMapping("/deleteTeacher")
         public String deleteTeacher( String uid,HttpServletRequest request){
-            System.out.println(uid);
+            //System.out.println(uid);
+            String name=teacherService.selectNameById(uid);
             Integer i=teacherService.deleteTeacherById(uid);
             if(i>0){
-                logService.insertLog("成功删除老师"+uid,userId(request), request.getRemoteAddr());
+                logService.insertLog("成功删除老师"+name,userId(request), request.getRemoteAddr());
                 return "删除成功";
             }else {
-                logService.insertLog("删除老师"+uid+"失败",userId(request), request.getRemoteAddr());
+                logService.insertLog("删除老师"+name+"失败",userId(request), request.getRemoteAddr());
                 return "删除失败";
             }
 
@@ -147,9 +150,9 @@ public class TeacherController extends BaseController {
         @ResponseBody
         @RequestMapping("/stopTeacher")
         public String stopTeacher(String uid,HttpServletRequest request){
-
+            String name=teacherService.selectNameById(uid);
             Integer i=teacherService.stopTeacher(uid);
-            logService.insertLog("成功停用老师"+uid,userId(request), request.getRemoteAddr());
+            logService.insertLog("成功停用老师"+name,userId(request), request.getRemoteAddr());
 
             return "success";
 
@@ -165,7 +168,8 @@ public class TeacherController extends BaseController {
         @RequestMapping("/startTeacher")
         public String startTeacher(String uid,HttpServletRequest request){
             Integer i=teacherService.startTeacher(uid);
-            logService.insertLog("成功启用老师"+uid,userId(request), request.getRemoteAddr());
+            String name=teacherService.selectNameById(uid);
+            logService.insertLog("成功启用老师"+name,userId(request), request.getRemoteAddr());
             return "success";
         }
         /**

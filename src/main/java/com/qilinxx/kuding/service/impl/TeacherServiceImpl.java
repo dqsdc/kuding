@@ -124,5 +124,10 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.updateByPrimaryKeySelective(teacher1);
     }
 
+    @Override
+    public String selectNameById(String sId) {
+        return teacherMapper.selectNameById(sId);
+    }
+
 
 }

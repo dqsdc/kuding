@@ -43,8 +43,8 @@ public class StudentController extends BaseController  {
     @RequestMapping("/changePassword")
     public String changePassword(String sId,String newpassword,HttpServletRequest request){
         int i=studentService.changePasswordBySId(sId,newpassword);
-        logService.insertLog("成功修改学生ID为"+sId+"的密码",userId(request), request.getRemoteAddr());
-
+        String name=studentService.selectNameById(sId);
+        logService.insertLog("成功修改学生"+name+"的密码",userId(request), request.getRemoteAddr());
         return   "success";
     }
     /** 
@@ -118,11 +118,12 @@ public class StudentController extends BaseController  {
     @RequestMapping("/deleteStudent")
     public String deleteStudent( String uid,HttpServletRequest request){
         Integer i=studentService.deleteStudentById(uid);
+        String name=studentService.selectNameById(uid);
         if (i>0) {
-            logService.insertLog("成功删除一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
+            logService.insertLog("成功删除一个学生"+name,userId(request), request.getRemoteAddr());
             return "删除成功";
         }else {
-            logService.insertLog("删除一个学生，他的ID为"+uid+"失败",userId(request), request.getRemoteAddr());
+            logService.insertLog("删除一个学生"+name+"失败",userId(request), request.getRemoteAddr());
             return "删除失败";
         }
 
@@ -138,12 +139,12 @@ public class StudentController extends BaseController  {
     @RequestMapping("/stopStudent")
     public String stopStudent(String uid,HttpServletRequest request){
         Integer i=studentService.stopStudent(uid);
-
+        String name=studentService.selectNameById(uid);
         if (i>0) {
-            logService.insertLog("成功停用一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
+            logService.insertLog("成功停用一个学生，他的name为"+name,userId(request), request.getRemoteAddr());
             return  "停用成功";
         }else {
-            logService.insertLog("停用一个学生，他的ID为"+uid+"失败",userId(request), request.getRemoteAddr());
+            logService.insertLog("停用一个学生，他的name为"+name+"失败",userId(request), request.getRemoteAddr());
             return  "停用失败";
         }
 
@@ -160,8 +161,9 @@ public class StudentController extends BaseController  {
     @ResponseBody
     @RequestMapping("/startStudent")
     public String startStudent(String uid,HttpServletRequest request){
+        String name=studentService.selectNameById(uid);
         Integer i=studentService.startStudent(uid);
-        logService.insertLog("成功启用一个学生，他的ID为"+uid,userId(request), request.getRemoteAddr());
+        logService.insertLog("成功启用一个学生，他的name为"+name,userId(request), request.getRemoteAddr());
         return "success";
     }
     /**
