@@ -92,7 +92,7 @@ public class DetailServiceImpl implements DetailService {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("0");
         detailMapper.updateByPrimaryKeySelective(detail);
-        return "停止开设:"+detail.getdName();
+        return "下架了:"+detail.getdName();
     }
 
     /**
@@ -106,7 +106,7 @@ public class DetailServiceImpl implements DetailService {
         Detail detail = detailMapper.selectByPrimaryKey(dId);
         detail.setdRemark("1");
         detailMapper.updateByPrimaryKeySelective(detail);
-        return "开设了:"+detail.getdName();
+        return "开设了:"+detail.getdName()+",他是第"+detail.getdNumber()+"章"+",课程有"+detail.getdTimeLength()+"分钟";
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.controller;
 
+import com.qilinxx.kuding.configure.WebConst;
 import com.qilinxx.kuding.domain.model.Course;
 import com.qilinxx.kuding.domain.model.Detail;
 import com.qilinxx.kuding.service.CourseService;
@@ -215,7 +216,7 @@ public class CourseController extends BaseController {
     public String stopCourse(String cId,HttpServletRequest request) {
         String str = courseService.stopCourse(cId);
         System.out.println("禁用信息："+str);
-        logService.insertLog(str,userId(request),userIp(request));
+        logService.insertLog(str,userId(request),userIp(request),WebConst.ALL_STUDENT,WebConst.ALL_TACHER);
         return "success";
     }
 
@@ -231,7 +232,7 @@ public class CourseController extends BaseController {
         String str = courseService.startCourse(cId);
         System.out.println(userId(request));
         System.out.println("传过来的语句："+str);
-        logService.insertLog(str,userId(request),userIp(request));
+        logService.insertLog(str,userId(request),userIp(request),WebConst.ALL_STUDENT,WebConst.ALL_TACHER);
         return "success";
     }
 
@@ -245,7 +246,7 @@ public class CourseController extends BaseController {
     @ResponseBody
     public String stopDetail(String dId,HttpServletRequest request) {
         String str = detailService.stopDetail(dId);
-        logService.insertLog(str,userId(request),userIp(request));
+        logService.insertLog(str,userId(request),userIp(request),null,WebConst.ALL_TACHER);
         return "success";
     }
 
@@ -258,7 +259,7 @@ public class CourseController extends BaseController {
     @ResponseBody
     public String startDetail(String dId,HttpServletRequest request) {
         String str = detailService.startDetail(dId);
-        logService.insertLog(str,userId(request),userIp(request));
+        logService.insertLog(str,userId(request),userIp(request),null,WebConst.ALL_TACHER);
         return "success";
     }
 

@@ -11,4 +11,6 @@ public class WebConst {
     public static final String SESSION_USER_VALUE = "管理员";
     public static final String SUPER_USERNAME="admin";
     public static final String SUPER_PASSWORD="123456";
+    public static  final String  ALL_STUDENT="all_student";
+    public static  final String  ALL_TACHER="all_teacher";
 }

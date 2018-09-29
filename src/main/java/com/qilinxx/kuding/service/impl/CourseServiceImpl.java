@@ -31,7 +31,7 @@ public class CourseServiceImpl implements CourseService {
         course.setcCreateTime(timeLong);
         course.setcRemark("0");//设置状态为未发布
         courseMapper.insert(course);
-        return "增加了:"+course.getcName()+"这门课，"+"总共有:"+course.getcCount()+"节课";
+        return "新开设了:"+course.getcName()+"这门课，"+"总共有:"+course.getcCount()+"节课";
     }
 //更新课程
 
@@ -73,7 +73,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseMapper.selectByPrimaryKey(cId);
         course.setcRemark("0");
         courseMapper.updateByPrimaryKeySelective(course);
-        return "停止开设:"+course.getcName();
+        return "下架了:"+course.getcName();
     }
 
     /**
@@ -86,6 +86,6 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseMapper.selectByPrimaryKey(cId);
         course.setcRemark("1");
         courseMapper.updateByPrimaryKeySelective(course);
-        return "开设了:"+course.getcName();
+        return "上架了:"+course.getcName()+",这门课总共有:"+course.getcCount()+"节课";
     }
 }
