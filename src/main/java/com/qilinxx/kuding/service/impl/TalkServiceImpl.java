@@ -40,8 +40,7 @@ public class TalkServiceImpl implements TalkService {
     @Override
     public String createMeetingOn(Integer people, Integer timeLong, Integer start) {
         if (timeLong <= 10) return "上课时间太短，请核实";
-        String json = createMeeting(people, timeLong, start);
-        return json;
+        return createMeeting(people, timeLong, start);
     }
 
     /**
@@ -51,15 +50,14 @@ public class TalkServiceImpl implements TalkService {
      * @param timeLong 会话时长
      * @param start    会议开始时间，即教师与学生约定时间存入数据库的int值，若立即开始，传入 null
      * @return 返回的json
-     * @throws UnsupportedEncodingException
      */
-    public String createMeeting(Integer people, Integer timeLong, Integer start) {
+    private String createMeeting(Integer people, Integer timeLong, Integer start) {
         HashMap<String, String> params = new HashMap<>();
         params.put("key", key);
         params.put("secret", secret);
         params.put("meeting_capacity", String.valueOf(people));
         params.put("minute", String.valueOf(timeLong + 10));
-        if (start == null)
+        if (start != null)
             params.put("start_time", String.valueOf((start - spare_time * 60) * 1000));//比预定时间提前spare_time开启
         String param = null;
         try {

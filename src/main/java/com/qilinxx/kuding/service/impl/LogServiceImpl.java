@@ -21,10 +21,6 @@ public class LogServiceImpl implements LogService {
     @Autowired
     LogMapper logMapper;
 
-    @Override
-    public void insertLog(Log log) {
-        logMapper.insert(log);
-    }
 
     /**
      * 保存一条日志（与学生和老师无关的操作）

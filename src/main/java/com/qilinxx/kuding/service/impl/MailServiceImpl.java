@@ -76,11 +76,6 @@ public class MailServiceImpl implements MailService {
 
     /**
      * 发送带附件的邮件
-     *
-     * @param to
-     * @param subject
-     * @param content
-     * @param filepath
      */
     @Override
     public void sendFileMail(String to, String subject, String content, String filepath) {

@@ -22,8 +22,7 @@ public class StudentServiceImpl  implements StudentService {
     //查询所有的学生列表
     @Override
     public List<Student> selectAllStudent() {
-        List<Student> studentList=studentMapper.selectAll();
-        return studentList;
+        return studentMapper.selectAll();
     }
 
 

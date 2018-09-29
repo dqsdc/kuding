@@ -57,3 +57,7 @@ spring:
     multipart:
       max-file-size: -1
       max-request-size: -1
+  mvc:
+    favicon:
+      enabled: false
+

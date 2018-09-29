@@ -10,7 +10,6 @@ import java.util.List;
  * @Description: 日志操作服务类
  */
 public interface LogService {
-    void insertLog(Log log);
 
     void insertLog(String action,String userId,String Ip);
 

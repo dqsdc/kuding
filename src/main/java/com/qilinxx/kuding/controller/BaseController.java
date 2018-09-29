@@ -30,11 +30,8 @@ public abstract class BaseController {
      * 192.168.1.100
      *
      * 用户真实IP为： 192.168.1.110
-     *
-     * @param request
-     * @return
      */
-    public  String getIpAddress(HttpServletRequest request) {
+    private String getIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -56,8 +53,6 @@ public abstract class BaseController {
 
     /**
      * 返回当前登录用户Id
-     * @param request
-     * @return
      */
     private String getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession();

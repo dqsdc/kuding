@@ -1,7 +1,6 @@
 package com.qilinxx.kuding.controller;
 
 import com.qilinxx.kuding.configure.WebConst;
-import com.qilinxx.kuding.configure.WebSecurityConfig;
 import com.qilinxx.kuding.domain.mapper.CourseMapper;
 import com.qilinxx.kuding.domain.model.Log;
 import com.qilinxx.kuding.service.LogService;

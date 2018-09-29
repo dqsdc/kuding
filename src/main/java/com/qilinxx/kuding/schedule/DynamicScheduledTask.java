@@ -2,8 +2,6 @@ package com.qilinxx.kuding.schedule;
 
 import com.qilinxx.kuding.domain.mapper.GrantMapper;
 import com.qilinxx.kuding.util.DateKit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @description:动态修改定时任务cron参数
+ * @Description: 动态修改定时任务cron参数
  */
 @Component
 public class DynamicScheduledTask implements SchedulingConfigurer {
@@ -24,8 +22,6 @@ public class DynamicScheduledTask implements SchedulingConfigurer {
     private static final String DEFAULT_CRON = "0 0 12,19 * * ?";
 
     private String cron = DEFAULT_CRON;
-
-    private Logger log = LoggerFactory.getLogger(DynamicScheduledTask.class);
 
     @Autowired
     GrantMapper grantMapper;
