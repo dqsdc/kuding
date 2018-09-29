@@ -71,4 +71,9 @@ public class LogServiceImpl implements LogService {
     public List<Log> getAllLog() {
         return logMapper.selectAll();
     }
+
+    @Override
+    public List<Log> getAdminLoginLog() {
+        return logMapper.selectAdminLogin();
+    }
 }

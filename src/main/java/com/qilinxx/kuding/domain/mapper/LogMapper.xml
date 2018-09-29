@@ -73,4 +73,8 @@
   <sql id="Base_Column_List">
     l_id, l_action, l_user_id, l_ip, l_create_time, l_state, l_remark, l_sid, l_tid
   </sql>
+
+  <select id="selectAdminLogin" resultMap="BaseResultMap">
+    SELECT * FROM web_logsheet WHERE l_action='登录成功' AND l_user_id='管理员' ORDER BY l_create_time DESC
+  </select>
 </mapper>

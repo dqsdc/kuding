@@ -3,11 +3,16 @@ package com.qilinxx.kuding.controller;
 import com.qilinxx.kuding.configure.WebConst;
 import com.qilinxx.kuding.configure.WebSecurityConfig;
 import com.qilinxx.kuding.domain.mapper.CourseMapper;
+import com.qilinxx.kuding.domain.model.Log;
+import com.qilinxx.kuding.service.LogService;
+import com.qilinxx.kuding.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Auther: ljm
@@ -20,23 +25,34 @@ public class IndexController {
     @Autowired
     CourseMapper courseMapper;
 
+    @Autowired
+    LogService logService;
+
 
     @RequestMapping("/")
     public String show(HttpSession session) {
-        if (session.getAttribute(WebConst.SESSION_USER_KEY)==null){
-        return "newLogin";}
-        else{
+        if (session.getAttribute(WebConst.SESSION_USER_KEY) == null) {
+            return "newLogin";
+        } else {
             return "index";
         }
 
     }
+
     @RequestMapping("/index")
     public String showIndex() {
         return "index";
     }
 
     @RequestMapping("/welcome")
-    public String showWelcome() {
+    public String showWelcome(HttpServletRequest request) {
+        List<Log> logs = logService.getAdminLoginLog();
+        request.setAttribute("size", logs.size());
+        if (logs.size()>=2)
+            request.setAttribute("log", logs.get(1));
+        else
+            request.setAttribute("log",logs.get(0));
+        request.setAttribute("commons", new Commons());
         return "welcome";
     }
 

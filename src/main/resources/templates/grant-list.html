@@ -39,7 +39,7 @@
             <thead>
             <tr class="text-c">
                 <th width="25"><input type="checkbox" name="" value=""></th>
-                <th width="60">ID</th>
+                <th width="60">序号</th>
                 <th width="90">教师姓名</th>
                 <th width="90" th:id="sName">学生姓名</th>
                 <th width="90">课程类别</th>
@@ -103,7 +103,7 @@
         $('.table-sort').dataTable({
             "aaSorting": [
                 [
-                    1, "desc"
+                    6, "asc"
                 ]
             ],//默认第几个排序
             "bStateSave": true,//状态保存

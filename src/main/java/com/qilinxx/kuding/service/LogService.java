@@ -17,4 +17,6 @@ public interface LogService {
     void insertLog(String action, String userId, String ip,String sid,String tid);
 
     List<Log>  getAllLog();
+
+    List<Log> getAdminLoginLog();
 }
