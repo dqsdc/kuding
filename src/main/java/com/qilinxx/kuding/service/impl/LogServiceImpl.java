@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.service.impl;
 
+import com.qilinxx.kuding.configure.WebConst;
 import com.qilinxx.kuding.domain.mapper.LogMapper;
 import com.qilinxx.kuding.domain.model.Log;
 import com.qilinxx.kuding.service.LogService;
@@ -24,9 +25,10 @@ public class LogServiceImpl implements LogService {
 
     /**
      * 保存一条日志（与学生和老师无关的操作）
+     *
      * @param action 具体操作名称
      * @param userId 当前登录的用户id
-     * @param ip 当前用户远端ip
+     * @param ip     当前用户远端ip
      */
     @Override
     public void insertLog(String action, String userId, String ip) {
@@ -42,11 +44,12 @@ public class LogServiceImpl implements LogService {
 
     /**
      * 保存一条日志（与老师和学生有关，传入对应的sid和tid）
+     *
      * @param action 具体操作名称
      * @param userId 当前登录的用户id
-     * @param ip 当前用户远端ip
-     * @param sid 相关学生id
-     * @param tid 相关教师id
+     * @param ip     当前用户远端ip
+     * @param sid    相关学生id
+     * @param tid    相关教师id
      */
 
     @Override
@@ -57,7 +60,10 @@ public class LogServiceImpl implements LogService {
         log.setlUserId(userId);
         log.setlIp(ip);
         log.setlCreateTime((long) DateKit.getCurrentUnixTime());
-        log.setlState("0");
+        if (WebConst.ALL_STUDENT.equals(sid) || WebConst.ALL_TACHER.equals(tid))
+            log.setlState("3");
+        else
+            log.setlState("0");
         log.setlSid(sid);
         log.setlTid(tid);
         logMapper.insert(log);
