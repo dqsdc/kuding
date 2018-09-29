@@ -66,7 +66,7 @@ public class DetailServiceImpl implements DetailService {
     public String  update(Detail detail) {
         detail.setdRemark("0");
         detailMapper.updateByPrimaryKeySelective(detail);
-        return "更新了:"+detail.getdName()+"课程信息";
+        return "更新了:"+detail.getdName()+"课程信息，等待审核通过。。";
     }
 
     /**
