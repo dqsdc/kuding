@@ -1,5 +1,6 @@
 package com.qilinxx.kuding.service.impl;
 
+import com.google.gson.Gson;
 import com.qilinxx.kuding.service.TalkService;
 import com.qilinxx.kuding.util.UrlConnectedUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,12 @@ public class TalkServiceImpl implements TalkService {
     @Value("${spare_time}")
     private int spare_time;
 
+    public String getGson(){
+        HashMap<String, String> map=new HashMap<>();
+        map.put("start_url"," http://timer.91veo.com/v1/meeting/start?id=798348&value=f8961aa1a5e6a7e0703bf720d147831e");
+        map.put("join_url","https://www.zoomus.cn/j/1850981134");
+        return new Gson().toJson(map);
+    }
 
     /**
      * 在未来的一个时间点创建上课会话

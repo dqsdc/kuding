@@ -69,8 +69,7 @@ public class GrantServiceImpl implements GrantService {
         Grant grant = grantMapper.selectByPrimaryKey(gid);
         Date date = DateKit.dateFormat(time);
         Long unixDate = DateKit.getUnixTimeLong(date);
-        int unix = DateKit.getUnixTimeByDate(date);
-        String json = talkService.createMeetingOn(meeting_capacity, time_long, unix);
+        String json =talkService.getGson();
         grant.setgUrl(json);
         grant.setgTime(unixDate);
         if ("2".equals(grant.getgRecord())) grant.setgRecord("0");//重新安排已取消的课程

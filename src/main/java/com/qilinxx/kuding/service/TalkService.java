@@ -15,6 +15,8 @@ public interface TalkService {
      * @param start    会话开始时间戳
      * @return 返回的json
      */
+    @Deprecated
     String createMeetingOn(Integer people, Integer timeLong, Integer start);
 
+    String getGson();
 }
