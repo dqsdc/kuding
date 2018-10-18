@@ -5,7 +5,9 @@ import com.qilinxx.kuding.domain.model.Teacher;
 import com.qilinxx.kuding.domain.model.vo.GrantVo;
 import com.qilinxx.kuding.service.GrantService;
 import com.qilinxx.kuding.service.LogService;
+import com.qilinxx.kuding.service.TeacherService;
 import com.qilinxx.kuding.util.Commons;
+import com.qilinxx.kuding.util.DateKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ import java.util.List;
  */
 @Controller
 public class GrantController extends BaseController {
+
+    @Autowired
+    TeacherService teacherService;
 
     @Autowired
     LogService logService;
@@ -78,7 +84,22 @@ public class GrantController extends BaseController {
         }
         return msg;
     }
-
+    //远端教师更新上课时间
+    @RequestMapping("/remoteEditTime")
+    @ResponseBody
+    public HashMap<String,String> editGrantTime(HttpServletRequest request, String gid, int time, String tid) {
+        String strTime= DateKit.formatDateByUnixTime(time,"yyyy-MM-dd HH:mm:ss");
+        String msg = grantService.updateGrantTimeById(gid, strTime);
+        if (msg.startsWith("修改")) {
+            String strs[] = msg.split("&&");
+            msg = strs[0];
+            logService.insertLog(strs[0], teacherService.selectNameById(tid), userIp(request), strs[1], strs[2]);
+        }
+        HashMap<String,String> map=new HashMap<>();
+        map.put("state","200");
+        map.put("msg",msg);
+        return map;
+    }
     //取消课程，将授课状态gRecord改为 已取消，并且删除 会议间
     @RequestMapping("/grant-cancel")
     @ResponseBody

@@ -27,6 +27,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 
         //排除配置
+        addInterceptor.excludePathPatterns("/remoteEditTime");
         addInterceptor.excludePathPatterns("/error");
         addInterceptor.excludePathPatterns("/login**/**");
      // addInterceptor.excludePathPatterns("/**/**");
